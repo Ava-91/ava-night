@@ -1,14 +1,40 @@
 {
   "name": "ava-night",
   "displayName": "Ava Night",
-  "description": "A beautiful dark VS Code theme.",
-  "version": "0.0.1",
+  "description": "A modern dark Visual Studio Code theme inspired by midnight, designed for readability, balanced contrast, and long coding sessions.",
+  "version": "1.0.0",
+  "publisher": "Ava-91",
+  "license": "MIT",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.125.0"
   },
   "categories": [
     "Themes"
   ],
+  "keywords": [
+    "theme",
+    "dark",
+    "midnight",
+    "night",
+    "vscode",
+    "visual-studio-code",
+    "color-theme",
+    "editor-theme",
+    "syntax-highlighting"
+  ],
+  "galleryBanner": {
+    "color": "#0F1117",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/Ava-91/ava-night",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ava-91/ava-night.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ava-91/ava-night/issues"
+  },
   "contributes": {
     "themes": [
       {
