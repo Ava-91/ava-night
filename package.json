@@ -1,0 +1,21 @@
+{
+  "name": "ava-night",
+  "displayName": "Ava Night",
+  "description": "A beautiful dark VS Code theme.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.125.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Ava Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Ava Night-color-theme.json"
+      }
+    ]
+  }
+}
