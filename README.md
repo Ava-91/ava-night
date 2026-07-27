@@ -52,13 +52,6 @@ Readable object structures with clear highlighting for keys, values, booleans, a
 
 ---
 
-### Search
-
-A themed Search panel highlighting matches across multiple files while maintaining clarity.
-
-![Search](.github/assets/search.png)
-
----
 
 ## 🎨 Color Philosophy
 
