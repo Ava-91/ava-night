@@ -2,7 +2,6 @@
   "name": "Ava Night",
   "include": "./Ava Night-color-theme.json",
   "colors": {
-    // Primary interaction: blue
     "focusBorder": "#61AFEF",
     "activityBar.activeBorder": "#61AFEF",
     "activityBar.activeFocusBorder": "#61AFEF",
@@ -12,8 +11,6 @@
     "commandCenter.activeBorder": "#61AFEF",
     "inputOption.activeBorder": "#61AFEF",
     "statusBarItem.focusBorder": "#61AFEF",
-
-    // Selection: deeper blue, intentionally distinct from focus
     "editor.selectionBackground": "#203A5C",
     "editor.selectionHighlightBackground": "#203A5C66",
     "editor.findRangeHighlightBackground": "#203A5C66",
@@ -27,8 +24,6 @@
     "statusBarItem.activeBackground": "#203A5C",
     "badge.background": "#203A5C",
     "profileBadge.background": "#203A5C",
-
-    // Hover: quieter blue so hover does not compete with focus
     "editor.hoverHighlightBackground": "#2B4A6B55",
     "editor.dropBackground": "#2B4A6B66",
     "list.hoverBackground": "#2B4A6B55",
@@ -36,15 +31,11 @@
     "statusBarItem.hoverBackground": "#2B4A6B55",
     "button.secondaryHoverBackground": "#30445C",
     "extensionButton.prominentHoverBackground": "#7FDBFF",
-
-    // Bright cyan: high-attention interactive states and cursor
     "editorCursor.foreground": "#7FDBFF",
     "editorLineNumber.activeForeground": "#7FDBFF",
     "button.hoverBackground": "#7FDBFF",
     "activityBarBadge.background": "#7FDBFF",
     "activityBarBadge.foreground": "#0F1117",
-
-    // Informational UI keeps the primary blue role
     "editorInfo.foreground": "#61AFEF",
     "editorInfo.border": "#61AFEF30",
     "inputValidation.infoBackground": "#61AFEF",
@@ -52,8 +43,6 @@
     "minimap.findMatchHighlight": "#61AFEF",
     "merge.currentHeaderBackground": "#61AFEF30",
     "merge.currentContentBackground": "#61AFEF15",
-
-    // Buttons: solid blue for primary actions, neutral surfaces for secondary actions
     "button.background": "#61AFEF",
     "button.foreground": "#0F1117",
     "button.secondaryBackground": "#242C3A",
@@ -62,7 +51,6 @@
     "extensionButton.prominentForeground": "#0F1117"
   },
   "semanticTokenColors": {
-    // Blue: executable actions and callable symbols
     "function": "#61AFEF",
     "method": "#61AFEF",
     "macro": "#61AFEF",
@@ -70,8 +58,6 @@
     "event": "#61AFEF",
     "operator": "#61AFEF",
     "keyword.operator": "#61AFEF",
-
-    // Purple: language structure, control flow, modules, and special constructs
     "keyword": "#B48EFA",
     "keyword.control": "#B48EFA",
     "namespace": "#B48EFA",
@@ -79,8 +65,6 @@
     "typeOperator": "#B48EFA",
     "class.decorator": "#B48EFA",
     "function.decorator": "#B48EFA",
-
-    // Gold: declarations, types, constants, and stable identifiers
     "class": "#FFD166",
     "enum": "#FFD166",
     "enumMember": "#FFD166",
@@ -94,20 +78,12 @@
     "type.parameter": "#E5C07B",
     "variable.constant": "#E5C07B",
     "variable.parameter": "#E5C07B",
-
-    // Green: successful/positive values and labels
     "string": "#98C379",
     "label": "#98C379",
-
-    // Cyan: escapes, regex, and high-attention language details
     "string.escape": "#7FDBFF",
     "regexp": "#7FDBFF",
     "escape": "#7FDBFF",
-
-    // Red: invalid/error states
     "error": "#F07178",
-
-    // Neutral: ordinary variables and properties remain quiet
     "variable": "#D8DEE9",
     "variable.readonly": "#D8DEE9",
     "variable.defaultLibrary": "#D8DEE9",
