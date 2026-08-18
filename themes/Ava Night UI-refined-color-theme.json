@@ -60,5 +60,61 @@
     "button.secondaryForeground": "#D8DEE9",
     "extensionButton.prominentBackground": "#61AFEF",
     "extensionButton.prominentForeground": "#0F1117"
+  },
+  "semanticTokenColors": {
+    // Blue: executable actions and callable symbols
+    "function": "#61AFEF",
+    "method": "#61AFEF",
+    "macro": "#61AFEF",
+    "builtin": "#61AFEF",
+    "event": "#61AFEF",
+    "operator": "#61AFEF",
+    "keyword.operator": "#61AFEF",
+
+    // Purple: language structure, control flow, modules, and special constructs
+    "keyword": "#B48EFA",
+    "keyword.control": "#B48EFA",
+    "namespace": "#B48EFA",
+    "module": "#B48EFA",
+    "typeOperator": "#B48EFA",
+    "class.decorator": "#B48EFA",
+    "function.decorator": "#B48EFA",
+
+    // Gold: declarations, types, constants, and stable identifiers
+    "class": "#FFD166",
+    "enum": "#FFD166",
+    "enumMember": "#FFD166",
+    "interface": "#FFD166",
+    "type": "#FFD166",
+    "variable.static": "#FFD166",
+    "property.static": "#FFD166",
+    "number": "#E5C07B",
+    "number.float": "#E5C07B",
+    "number.hex": "#E5C07B",
+    "type.parameter": "#E5C07B",
+    "variable.constant": "#E5C07B",
+    "variable.parameter": "#E5C07B",
+
+    // Green: successful/positive values and labels
+    "string": "#98C379",
+    "label": "#98C379",
+
+    // Cyan: escapes, regex, and high-attention language details
+    "string.escape": "#7FDBFF",
+    "regexp": "#7FDBFF",
+    "escape": "#7FDBFF",
+
+    // Red: invalid/error states
+    "error": "#F07178",
+
+    // Neutral: ordinary variables and properties remain quiet
+    "variable": "#D8DEE9",
+    "variable.readonly": "#D8DEE9",
+    "variable.defaultLibrary": "#D8DEE9",
+    "variable.member": "#D8DEE9",
+    "variable.mutable": "#D8DEE9",
+    "property": "#D8DEE9",
+    "property.readonly": "#D8DEE9",
+    "comment": "#667085"
   }
 }
