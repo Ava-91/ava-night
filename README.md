@@ -2,9 +2,13 @@
 
 > *Where code meets the quiet of midnight.*
 
-Ava Night is a carefully crafted Visual Studio Code theme designed for developers who prefer calm over clutter. Every color is chosen with intention to create a workspace that remains readable, elegant, and comfortable during long coding sessions.
+[![Version](https://img.shields.io/badge/version-1.1.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
+[![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](https://github.com/Ava-91/ava-night/blob/main/LICENSE)
+[![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
-Rather than relying on harsh contrast or oversaturated colors, Ava Night emphasizes consistency, subtle hierarchy, and a modern midnight-inspired aesthetic that keeps the focus on your code.
+Ava Night is a carefully crafted Visual Studio Code theme for developers who prefer **calm over clutter**. Every color is chosen with intention to create a workspace that remains readable, elegant, and comfortable during long coding sessions.
+
+Rather than relying on harsh contrast or oversaturated colors, Ava Night emphasizes **consistency, subtle hierarchy, and a modern midnight-inspired aesthetic** that keeps the focus on your code.
 
 ---
 
@@ -15,43 +19,36 @@ Rather than relying on harsh contrast or oversaturated colors, Ava Night emphasi
 - 🧠 Semantic token support
 - 💻 Complete workbench styling
 - 📂 Consistent Explorer, Search, Git, and Terminal colors
-- 👀 Comfortable for extended coding sessions
+- 👀 Designed for extended coding sessions
 - ⚡ Lightweight with zero runtime dependencies
 
 ---
 
-# 📸 Preview
+## 📸 Preview
 
 ### Hero
 
-![Hero](.github/assets/hero.png)
-
----
+![Ava Night preview](.github/assets/hero.png)
 
 ### React + TypeScript
 
 A clean React component showcasing interfaces, JSX, functions, props, and syntax highlighting.
 
-![React](.github/assets/react.png)
-
----
+![React + TypeScript syntax highlighting](.github/assets/react.png)
 
 ### CSS
 
 Balanced styling for CSS variables, custom properties, colors, and modern syntax.
 
-![CSS](.github/assets/css.png)
-
----
+![CSS syntax highlighting](.github/assets/css.png)
 
 ### JSON
 
 Readable object structures with clear highlighting for keys, values, booleans, and arrays.
 
-![JSON](.github/assets/json.png)
+![JSON syntax highlighting](.github/assets/json.png)
 
 ---
-
 
 ## 🎨 Color Philosophy
 
@@ -59,21 +56,29 @@ Ava Night follows one simple principle:
 
 > **Every color should communicate meaning—not compete for attention.**
 
-The palette is intentionally restrained:
+### Core palette
 
-- 💜 Keywords guide control flow
-- 💙 Functions and methods stand out naturally
-- 💚 Strings remain calm and readable
-- 💛 Types and interfaces are easy to identify
-- 🩶 Comments stay visible without becoming distracting
+| Role | Color | Hex |
+| --- | --- | --- |
+| Deep background | ◼️ | `#0F1117` |
+| Editor background | ◼️ | `#131722` |
+| Panel background | ◼️ | `#151A24` |
+| Borders | ◻️ | `#242C3A` |
+| Primary text | ◻️ | `#D8DEE9` |
+| Focus / primary accent | 🔵 | `#61AFEF` |
+| Bright cyan | 🩵 | `#7FDBFF` |
+| Secondary purple | 🟣 | `#B48EFA` |
+| Success / added | 🟢 | `#98C379` |
+| Warning / modified | 🟡 | `#FFD166` |
+| Error / deleted | 🔴 | `#F07178` |
 
-The interface combines deep midnight blues with cool neutrals and carefully tuned accents to reduce visual fatigue while preserving contrast where it matters.
+The palette is intentionally restrained: deep midnight blues form the foundation, cool neutrals keep text readable, and brighter accents are reserved for syntax, interaction, and semantic states.
 
 ---
 
 ## 💡 Designed For
 
-Optimized and tested with:
+Ava Night is optimized and tested with:
 
 - TypeScript
 - React / TSX
@@ -93,16 +98,16 @@ Support for additional languages will continue to improve with future releases.
 
 ### Visual Studio Marketplace
 
-1. Open **Extensions** (`Ctrl + Shift + X`)
-2. Search for **Ava Night**
-3. Click **Install**
-4. Select **Ava Night** from **Preferences → Color Theme**
+1. Open **Extensions** (`Ctrl + Shift + X`).
+2. Search for **Ava Night**.
+3. Click **Install**.
+4. Select **Ava Night** from **Preferences → Color Theme**.
 
 ### VSIX
 
 1. Download the latest release.
 2. Open **Extensions**.
-3. Click **⋯ → Install from VSIX...**
+3. Click **⋯ → Install from VSIX...**.
 4. Select the downloaded `.vsix` file.
 
 ---
@@ -131,9 +136,7 @@ Press **F5** inside Visual Studio Code to launch an Extension Development Host a
 
 ## 🤝 Feedback
 
-Found a bug or have an idea?
-
-Feel free to open an issue or submit a feature request on GitHub.
+Found a bug or have an idea? [Open an issue](https://github.com/Ava-91/ava-night/issues) or submit a feature request.
 
 If Ava Night improves your coding experience, consider leaving a ⭐ on the repository—it helps others discover the theme.
 
