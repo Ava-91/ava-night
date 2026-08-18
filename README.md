@@ -78,7 +78,7 @@ The palette is intentionally restrained: deep midnight blues form the foundation
 
 ## 💡 Designed For
 
-Ava Night is optimized and tested with:
+Ava Night is designed for and currently previewed/tested against:
 
 - TypeScript
 - React / TSX
@@ -90,7 +90,7 @@ Ava Night is optimized and tested with:
 - Integrated Terminal
 - VS Code Workbench
 
-Support for additional languages will continue to improve with future releases.
+Additional language validation is tracked in [Issue #2](https://github.com/Ava-91/ava-night/issues/2).
 
 ---
 
