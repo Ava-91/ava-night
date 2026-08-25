@@ -83,6 +83,8 @@
     "string.escape": "#7FDBFF",
     "regexp": "#7FDBFF",
     "escape": "#7FDBFF",
+    "annotation": "#7FDBFF",
+    "decorator": "#7FDBFF",
     "error": "#F07178",
     "variable": "#D8DEE9",
     "variable.readonly": "#D8DEE9",
