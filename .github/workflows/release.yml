@@ -3,28 +3,38 @@ name: Release Build
 on:
   release:
     types: [published]
+
 permissions:
   contents: read
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm install -g @vscode/vsce
+      - name: Validate theme JSON
+        run: node -e "const fs=require('fs'); for (const f of ['themes/Ava Night-color-theme.json','themes/Ava Night UI-refined-color-theme.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('Theme JSON is valid.')"
 
-      - run: vsce package
+      - name: Install VSCE
+        run: npm install --global @vscode/vsce
 
-      - uses: actions/upload-artifact@v4
+      - name: Package VSIX
+        run: vsce package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
         with:
           name: ava-night-vsix
           path: "*.vsix"
