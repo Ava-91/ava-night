@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
 
 permissions:
@@ -15,14 +14,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm install -g @vscode/vsce
+      - name: Validate theme JSON
+        run: node -e "const fs=require('fs'); const files=['themes/Ava Night-color-theme.json','themes/Ava Night UI-refined-color-theme.json']; for (const f of files) JSON.parse(fs.readFileSync(f,'utf8')); console.log('Validated '+files.length+' theme files.')"
 
-      - run: vsce package
+      - name: Install VSCE
+        run: npm install --global @vscode/vsce
+
+      - name: Package extension
+        run: vsce package
