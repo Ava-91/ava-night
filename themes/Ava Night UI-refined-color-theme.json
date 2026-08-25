@@ -63,7 +63,10 @@
     "button.secondaryBackground": "#242C3A",
     "button.secondaryForeground": "#D8DEE9",
     "extensionButton.prominentBackground": "#61AFEF",
-    "extensionButton.prominentForeground": "#0F1117"
+    "extensionButton.prominentForeground": "#0F1117",
+    "activityBarBadge.border": "#0F1117",
+    "statusBarItem.prominentBackground": "#203A5C",
+    "statusBarItem.prominentHoverBackground": "#2B4A6B"
   },
   "semanticTokenColors": {
     "function": "#61AFEF",
