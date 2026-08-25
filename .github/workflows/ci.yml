@@ -36,19 +36,77 @@ jobs:
             'themes/Ava Night UI-refined-color-theme.json'
           ];
 
-          // The VS Code theme format is JSON with comments (JSONC).
-          // The theme files intentionally contain full-line comments, so
-          // validate them as JSONC instead of passing raw JSON to JSON.parse.
-          const stripJsoncComments = (source) =>
-            source.replace(/^\s*\/\/.*$/gm, '');
+          // VS Code color themes use JSONC: JSON syntax with comments and
+          // optional trailing commas. Validate that format instead of feeding
+          // the raw files directly to JSON.parse().
+          const parseJsonc = (source) => {
+            // Remove // and /* */ comments while preserving strings.
+            let output = '';
+            let inString = false;
+            let escaped = false;
+            let inLineComment = false;
+            let inBlockComment = false;
+
+            for (let i = 0; i < source.length; i++) {
+              const char = source[i];
+              const next = source[i + 1];
+
+              if (inLineComment) {
+                if (char === '\n') {
+                  inLineComment = false;
+                  output += char;
+                }
+                continue;
+              }
+
+              if (inBlockComment) {
+                if (char === '*' && next === '/') {
+                  inBlockComment = false;
+                  i++;
+                } else if (char === '\n') {
+                  output += '\n';
+                }
+                continue;
+              }
+
+              if (inString) {
+                output += char;
+                if (escaped) {
+                  escaped = false;
+                } else if (char === '\\') {
+                  escaped = true;
+                } else if (char === '"') {
+                  inString = false;
+                }
+                continue;
+              }
+
+              if (char === '"') {
+                inString = true;
+                output += char;
+              } else if (char === '/' && next === '/') {
+                inLineComment = true;
+                i++;
+              } else if (char === '/' && next === '*') {
+                inBlockComment = true;
+                i++;
+              } else {
+                output += char;
+              }
+            }
+
+            // JSONC permits trailing commas; JSON.parse does not.
+            output = output.replace(/,\s*([}\]])/g, '$1');
+            return JSON.parse(output);
+          };
 
           for (const file of files) {
             const source = fs.readFileSync(file, 'utf8');
-            const json = stripJsoncComments(source);
-            JSON.parse(json);
+            parseJsonc(source);
+            console.log(`Validated ${file} as JSONC.`);
           }
 
-          console.log(`Validated ${files.length} theme files as JSONC.`);
+          console.log(`Validated ${files.length} VS Code theme files as JSONC.`);
           NODE
 
       - name: Install VSCE
