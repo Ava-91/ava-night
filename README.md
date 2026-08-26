@@ -2,7 +2,7 @@
 
 > **Where code meets the quiet of midnight.**
 
-[![Version](https://img.shields.io/badge/version-1.1.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
 [![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](https://github.com/Ava-91/ava-night/blob/main/LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
