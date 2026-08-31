@@ -1,4 +1,4 @@
-name: Build
+name: Validate
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  package:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,21 +26,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate extension metadata
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const theme = pkg.contributes?.themes?.find((entry) => entry.label === 'Ava Night');
+          if (!theme) throw new Error('Ava Night theme contribution is missing.');
+          if (theme.uiTheme !== 'vs-dark') throw new Error('Ava Night must use the vs-dark UI theme.');
+          if (!fs.existsSync(theme.path)) throw new Error(`Theme file not found: ${theme.path}`);
+          if (pkg.license !== 'MIT') throw new Error('Expected the MIT license.');
+          console.log(`Validated ${theme.path} from package.json.`);
+          NODE
+
       - name: Validate theme JSONC
         run: |
           node <<'NODE'
           const fs = require('fs');
 
-          const files = [
-            'themes/Ava Night-color-theme.json',
-            'themes/Ava Night UI-refined-color-theme.json'
-          ];
-
-          // VS Code color themes use JSONC: JSON syntax with comments and
-          // optional trailing commas. Validate that format instead of feeding
-          // the raw files directly to JSON.parse().
           const parseJsonc = (source) => {
-            // Remove // and /* */ comments while preserving strings.
             let output = '';
             let inString = false;
             let escaped = false;
@@ -71,13 +75,9 @@ jobs:
 
               if (inString) {
                 output += char;
-                if (escaped) {
-                  escaped = false;
-                } else if (char === '\\') {
-                  escaped = true;
-                } else if (char === '"') {
-                  inString = false;
-                }
+                if (escaped) escaped = false;
+                else if (char === '\\') escaped = true;
+                else if (char === '"') inString = false;
                 continue;
               }
 
@@ -95,22 +95,23 @@ jobs:
               }
             }
 
-            // JSONC permits trailing commas; JSON.parse does not.
-            output = output.replace(/,\s*([}\]])/g, '$1');
-            return JSON.parse(output);
+            return JSON.parse(output.replace(/,\s*([}\]])/g, '$1'));
           };
 
-          for (const file of files) {
-            const source = fs.readFileSync(file, 'utf8');
-            parseJsonc(source);
-            console.log(`Validated ${file} as JSONC.`);
-          }
-
-          console.log(`Validated ${files.length} VS Code theme files as JSONC.`);
+          const themePath = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+            .contributes.themes.find((entry) => entry.label === 'Ava Night').path;
+          const source = fs.readFileSync(themePath, 'utf8');
+          const parsed = parseJsonc(source);
+          if (parsed.name !== 'Ava Night') throw new Error('Theme name does not match package metadata.');
+          if (!parsed.include) throw new Error('Published theme must include the base theme.');
+          const basePath = require('path').resolve(require('path').dirname(themePath), parsed.include);
+          if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${parsed.include}`);
+          parseJsonc(fs.readFileSync(basePath, 'utf8'));
+          console.log('Validated published theme and included base theme as JSONC.');
           NODE
 
       - name: Install VSCE
         run: npm install --global @vscode/vsce
 
       - name: Package extension
-        run: vsce package
+        run: vsce package --no-dependencies

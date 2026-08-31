@@ -6,12 +6,12 @@
   "publisher": "Ava-91",
   "license": "MIT",
   "icon": "icon.png",
-  "engines": {"vscode": "^1.125.0"},
+  "engines": {"vscode": ">=1.100.0"},
   "categories": ["Themes"],
   "keywords": ["ava-night", "ava night theme", "theme", "dark theme", "midnight theme", "night theme", "vscode theme", "visual studio code theme", "color theme", "editor theme", "syntax highlighting", "dark mode"],
   "galleryBanner": {"color": "#0F1117", "theme": "dark"},
   "homepage": "https://github.com/Ava-91/ava-night",
   "repository": {"type": "git", "url": "https://github.com/Ava-91/ava-night.git"},
   "bugs": {"url": "https://github.com/Ava-91/ava-night/issues"},
-  "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/Ava Night UI-refined-color-theme.json"}]}
+  "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
 }
