@@ -114,6 +114,7 @@
     "statusBarItem.prominentHoverBackground": "#242C3A",
     "statusBarItem.remoteBackground": "#B48EFA",
     "statusBarItem.remoteForeground": "#0F1117",
+    "list.background": "#151A24",
     "list.foreground": "#D8DEE9",
     "list.hoverBackground": "#242C3A50",
     "list.activeSelectionBackground": "#2A4365",
