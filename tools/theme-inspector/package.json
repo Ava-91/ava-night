@@ -1,0 +1,15 @@
+{
+  "name": "ava-night-theme-inspector",
+  "displayName": "Ava Night Theme Inspector",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local VS Code inspector for machine-readable Ava Night theme evidence.",
+  "engines": {"vscode": ">=1.100.0"},
+  "main": "./extension.js",
+  "activationEvents": ["onCommand:avaNight.inspectTheme"],
+  "contributes": {
+    "commands": [
+      {"command": "avaNight.inspectTheme", "title": "Ava Night: Inspect Theme"}
+    ]
+  }
+}
