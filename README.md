@@ -1,19 +1,19 @@
 <div align="center">
 
-    # 🌙 Ava Night
+# 🌙 Ava Night
 
-    ## Where code meets the quiet of midnight
+## Where code meets the quiet of midnight
 
-    A calm, midnight Visual Studio Code theme built around **focus, readable contrast, and meaningful color**.
+A calm, midnight Visual Studio Code theme built around **focus, readable contrast, and meaningful color**.
 
-    ![Ava Night preview](.github/assets/hero.png)
+![Ava Night preview](.github/assets/hero.png)
 
-    [![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
-    [![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](https://github.com/Ava-91/ava-night/blob/main/LICENSE)
-    [![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
-    [![Diagnostics](https://img.shields.io/badge/QA-automated-61AFEF?style=flat-square)](tools/theme-diagnostics.js)
+[![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
+[![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](https://github.com/Ava-91/ava-night/blob/main/LICENSE)
+[![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+[![Diagnostics](https://img.shields.io/badge/QA-automated-61AFEF?style=flat-square)](tools/theme-diagnostics.js)
 
-    Calm • Focused • Readable • Midnight
+Calm • Focused • Readable • Midnight
 
 </div>
 
