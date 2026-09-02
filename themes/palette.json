@@ -1,0 +1,20 @@
+{
+  "background": "#131722",
+  "deepBackground": "#0F1117",
+  "surface": "#151A24",
+  "border": "#242C3A",
+  "borderActive": "#3A4559",
+  "text": "#D8DEE9",
+  "mutedText": "#8B95A7",
+  "blue": "#61AFEF",
+  "cyan": "#7FDBFF",
+  "purple": "#B48EFA",
+  "green": "#98C379",
+  "yellow": "#FFD166",
+  "red": "#F07178",
+  "number": "#E5C07B",
+  "selection": "#2A4365",
+  "selectionOverride": "#203A5C",
+  "hover": "#2B4A6B",
+  "buttonSecondaryHover": "#30445C"
+}
