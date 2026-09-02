@@ -133,11 +133,23 @@ jobs:
           curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
           sudo apt-get update
           sudo apt-get install -y /tmp/code.deb xvfb
+      - name: Package extension for smoke testing
+        run: vsce package --no-dependencies
+
+      - name: Install pinned VS Code runtime
+        run: |
+          curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
+          sudo apt-get update
+          sudo apt-get install -y /tmp/code.deb xvfb
+
+      - name: Find packaged VSIX
+        id: package
+        run: echo "path=$(pwd)/$(ls ava-night-*.vsix)" >> "$GITHUB_OUTPUT"
 
       - name: Run VS Code rendering smoke test
         env:
           CODE_BIN: code
-          VSIX_PATH: ${{ github.workspace }}/ava-night-1.2.0.vsix
+          VSIX_PATH: ${{ steps.package.outputs.path }}
         run: npm run vscode:smoke
 
       - name: Upload VS Code smoke report
