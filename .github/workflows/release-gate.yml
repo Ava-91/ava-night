@@ -1,0 +1,85 @@
+name: Explicit Release Gate
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version, matching package.json (for example 1.2.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version || github.ref_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate explicit release version
+        run: npm run release:check
+
+      - name: Run diagnostics
+        run: npm run diagnostics
+
+      - name: Run theme quality checks
+        run: npm run quality
+
+      - name: Run accessibility and visual QA
+        run: npm run qa
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Install VSCE
+        run: npm install --global @vscode/vsce
+
+      - name: Package release VSIX
+        run: vsce package --no-dependencies
+
+      - name: Validate VSIX package
+        run: npm run vsix:smoke
+
+      - name: Install pinned VS Code runtime
+        run: |
+          curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
+          sudo apt-get update
+          sudo apt-get install -y /tmp/code.deb xvfb
+
+      - name: Run VS Code rendering smoke test
+        env:
+          CODE_BIN: code
+          VSIX_PATH: ${{ github.workspace }}/ava-night-1.2.0.vsix
+        run: npm run vscode:smoke
+
+      - name: Upload release VSIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: ava-night-release-vsix
+          path: "*.vsix"
+
+      - name: Upload release QA reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: ava-night-release-qa
+          path: tests/results/*report.json
+
+      # Publishing is intentionally not performed here. A validated artifact is
+      # produced for an explicit release event, while Marketplace publishing
+      # remains a separate deliberate action.
