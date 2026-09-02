@@ -19,6 +19,7 @@
     "qa": "node tools/theme-qa.js",
     "vscode:smoke": "node tools/vscode-smoke.js",
     "vsix:smoke": "node tools/vsix-smoke.js",
+    "release:check": "node tools/release-check.js",
     "test": "node --test tests/*.test.js"
   },
   "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
