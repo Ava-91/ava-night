@@ -9,7 +9,7 @@ These fixtures are visual QA inputs for Ava Night. They are intentionally writte
 3. Open the fixture for the language you want to inspect.
 4. Make sure semantic highlighting is enabled (`editor.semanticHighlighting.enabled`).
 5. Check the syntax hierarchy, semantic tokens, comments, literals, operators, punctuation, embedded languages, and error states.
-6. Record unexpected rendering in the relevant GitHub issue before changing the palette.
+6. Record unexpected rendering in the relevant GitHub issue before changing the theme.
 
 ## Matrix
 
