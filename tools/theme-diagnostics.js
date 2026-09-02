@@ -51,7 +51,7 @@ function main() {
     ['editor.foreground', 'editor.background'],
     ['editorLineNumber.foreground', 'editor.background'],
     ['editorLineNumber.activeForeground', 'editor.background'],
-    ['editorIndentGuide.background', 'editor.background'],
+    ['editorIndentGuide.background1', 'editor.background'],
     ['breadcrumb.foreground', 'breadcrumb.background'],
     ['breadcrumb.focusForeground', 'breadcrumb.background'],
     ['sideBar.foreground', 'sideBar.background'],
