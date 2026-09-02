@@ -1,0 +1,21 @@
+name: Ava Night
+version: 1.3
+enabled: true
+owner:
+  name: Ava
+  roles:
+    - developer
+    - designer
+colors:
+  background: "#131722"
+  foreground: '#D8DEE9'
+features: &features
+  semanticTokens: true
+  terminal: true
+  diff: true
+copy:
+  <<: *features
+metadata:
+  description: >-
+    A midnight Visual Studio Code theme
+    focused on readable long sessions.
