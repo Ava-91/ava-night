@@ -36,15 +36,22 @@ test('theme diagnostics runs successfully', () => {
   }
 });
 
-test('diagnostics reports all configured contrast checks', () => {
+test('diagnostics covers the full configured contrast matrix', () => {
   const report = JSON.parse(fs.readFileSync(path.join(resultsDir, 'contrast-report.json'), 'utf8'));
-  assert.ok(report.length >= 12);
-  for (const entry of report) {
-    assert.equal(typeof entry.foreground, 'string');
-    assert.equal(typeof entry.background, 'string');
-    assert.equal(typeof entry.ratio, 'number');
-    assert.ok(entry.ratio >= 3, `${entry.foreground} / ${entry.background} is ${entry.ratio}:1`);
-  }
+  assert.ok(report.length >= 35, `expected at least 35 checks, found ${report.length}`);
+  assert.ok(report.every((entry) => typeof entry.ratio === 'number'));
+  assert.ok(report.every((entry) => entry.ratio >= 3), 'every configured pair must meet the 3:1 minimum');
+
+  const requiredPairs = [
+    'input.placeholderForeground / input.background',
+    'menu.selectionForeground / menu.selectionBackground',
+    'gitDecoration.addedResourceForeground / sideBar.background',
+    'gitDecoration.modifiedResourceForeground / sideBar.background',
+    'terminal.ansiCyan / terminal.background',
+    'semantic.comment / editor.background',
+  ];
+  const actualPairs = new Set(report.map((entry) => `${entry.foreground} / ${entry.background}`));
+  for (const pair of requiredPairs) assert.equal(actualPairs.has(pair), true, `missing contrast pair: ${pair}`);
 });
 
 test('diagnostics inventory matches fixtures', () => {

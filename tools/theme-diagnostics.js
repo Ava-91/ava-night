@@ -13,11 +13,8 @@ function readJson(file) {
 }
 
 function hexToRgb(hex) {
-  const value = hex.replace('#', '');
-  const normalized = value.length === 3
-    ? value.split('').map((x) => x + x).join('')
-    : value.slice(0, 6);
-  const n = Number.parseInt(normalized, 16);
+  const value = hex.replace('#', '').slice(0, 6);
+  const n = Number.parseInt(value, 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
@@ -53,11 +50,39 @@ function main() {
   const contrastPairs = [
     ['editor.foreground', 'editor.background'],
     ['editorLineNumber.foreground', 'editor.background'],
+    ['editorLineNumber.activeForeground', 'editor.background'],
+    ['editorIndentGuide.background', 'editor.background'],
     ['breadcrumb.foreground', 'breadcrumb.background'],
+    ['breadcrumb.focusForeground', 'breadcrumb.background'],
     ['sideBar.foreground', 'sideBar.background'],
+    ['sideBarSectionHeader.foreground', 'sideBarSectionHeader.background'],
+    ['panelTitle.activeForeground', 'panel.background'],
+    ['panelTitle.inactiveForeground', 'panel.background'],
     ['terminal.foreground', 'terminal.background'],
     ['statusBar.foreground', 'statusBar.background'],
+    ['statusBarItem.hoverForeground', 'statusBar.background'],
+    ['tab.activeForeground', 'tab.activeBackground'],
+    ['tab.inactiveForeground', 'tab.inactiveBackground'],
+    ['list.foreground', 'list.background'],
+    ['menu.foreground', 'menu.background'],
+    ['menu.selectionForeground', 'menu.selectionBackground'],
+    ['quickInput.foreground', 'quickInput.background'],
+    ['input.foreground', 'input.background'],
+    ['input.placeholderForeground', 'input.background'],
     ['button.foreground', 'button.background'],
+    ['textLink.foreground', 'editor.background'],
+    ['editorError.foreground', 'editor.background'],
+    ['editorWarning.foreground', 'editor.background'],
+    ['editorInfo.foreground', 'editor.background'],
+    ['gitDecoration.addedResourceForeground', 'sideBar.background'],
+    ['gitDecoration.modifiedResourceForeground', 'sideBar.background'],
+    ['gitDecoration.deletedResourceForeground', 'sideBar.background'],
+    ['terminal.ansiRed', 'terminal.background'],
+    ['terminal.ansiGreen', 'terminal.background'],
+    ['terminal.ansiYellow', 'terminal.background'],
+    ['terminal.ansiBlue', 'terminal.background'],
+    ['terminal.ansiMagenta', 'terminal.background'],
+    ['terminal.ansiCyan', 'terminal.background'],
     ['semantic.comment', 'editor.background'],
     ['semantic.function', 'editor.background'],
     ['semantic.class', 'editor.background'],
@@ -102,12 +127,14 @@ function main() {
   fs.writeFileSync(path.join(resultsDir, 'fixture-inventory.json'), JSON.stringify(fixtures, null, 2) + '\n');
 
   const failures = contrastReport.filter((entry) => entry.ratio === null || entry.ratio < 3);
+  const missing = contrastReport.filter((entry) => entry.ratio === null);
   const markdown = [
     '# Ava Night Theme Diagnostics',
     '',
     `Theme source: \`${report.theme}\``,
     '',
     `Fixtures discovered: **${fixtures.length}**`,
+    `Contrast checks: **${contrastReport.length}**`,
     '',
     '## Contrast checks',
     '',
@@ -116,8 +143,9 @@ function main() {
     ...contrastReport.map((entry) => `| ${entry.foreground} | ${entry.background} | ${entry.ratio ?? 'N/A'} | ${entry.wcagAA ? 'PASS' : 'FAIL'} |`),
     '',
     `Overall: **${failures.length ? `${failures.length} checks need attention` : 'all configured checks pass'}**`,
+    missing.length ? `Missing color definitions: **${missing.length}**` : 'Missing color definitions: **0**',
     '',
-    'Semantic-token inspection is produced by the VS Code inspector extension in `tools/theme-inspector/`.',
+    'This audit covers editor, workbench, navigation, controls, terminal, Git decorations, diagnostics, and semantic-token roles. Visual rendering remains a manual VS Code validation step.',
     '',
   ].join('\n');
   fs.writeFileSync(path.join(resultsDir, 'summary.md'), markdown);
