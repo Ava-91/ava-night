@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#0F1117" />
+    <title>Ava Night</title>
+    <style>
+      :root { --accent: #61AFEF; }
+      .active { color: var(--accent); }
+    </style>
+  </head>
+  <body data-theme="night">
+    <main id="app" aria-label="Ava Night">
+      <h1>Hello, <span class="active">Ava</span></h1>
+      <button type="button" onclick="toggleTheme()">Toggle</button>
+    </main>
+    <script>
+      const theme = { name: "Ava Night", enabled: true };
+      function toggleTheme() { document.body.dataset.theme = theme.enabled ? "night" : "day"; }
+    </script>
+  </body>
+</html>
