@@ -1,0 +1,23 @@
+@layer theme {
+  :root {
+    --background: #131722;
+    --foreground: #D8DEE9;
+    --accent: rgb(97 175 239 / 90%);
+  }
+}
+
+.editor[data-state="active"] {
+  color: var(--foreground);
+  background: var(--background);
+  transition: color 180ms ease, transform 120ms ease;
+}
+
+.editor:hover::before,
+.editor:focus-visible::after {
+  content: "Ava Night";
+  color: color-mix(in srgb, var(--accent) 80%, white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor { transition: none; }
+}
