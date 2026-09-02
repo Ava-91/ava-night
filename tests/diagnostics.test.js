@@ -10,12 +10,26 @@ const resultsDir = path.join(__dirname, 'results');
 const diagnosticScript = path.join(root, 'tools', 'theme-diagnostics.js');
 const qualityScript = path.join(root, 'tools', 'theme-quality.js');
 const baseTheme = path.join(root, 'themes', 'ava-night-base.json');
+const palettePath = path.join(root, 'themes', 'palette.json');
 
 const expectedFixtures = [
   'cpp.cpp', 'css.css', 'go.go', 'html.html', 'javascript.js', 'json.json',
   'jsonc.jsonc', 'markdown.md', 'python.py', 'react.tsx', 'rust.rs', 'shell.sh',
   'sql.sql', 'typescript.ts', 'yaml.yaml',
 ];
+
+const semanticExpectations = {
+  function: 'blue', method: 'blue', macro: 'blue', builtin: 'blue',
+  keyword: 'purple', 'keyword.control': 'purple', namespace: 'purple', module: 'purple',
+  typeOperator: 'purple', modifier: 'purple',
+  class: 'yellow', enum: 'yellow', enumMember: 'yellow', interface: 'yellow',
+  type: 'yellow', typeParameter: 'yellow', number: 'number',
+  string: 'green', regexp: 'cyan', decorator: 'cyan', annotation: 'cyan',
+  label: 'cyan', event: 'cyan',
+  variable: 'text', 'variable.readonly': 'text', 'variable.defaultLibrary': 'text',
+  'variable.member': 'text', 'variable.mutable': 'text', property: 'text',
+  'property.readonly': 'text', parameter: 'text', operator: 'text', comment: 'mutedText',
+};
 
 function run(script) {
   return spawnSync(process.execPath, [script], { cwd: root, encoding: 'utf8' });
@@ -30,7 +44,6 @@ test('theme diagnostics runs successfully', () => {
   const result = run(diagnosticScript);
   assert.equal(result.error, undefined);
   assert.equal(result.status, 0, result.stdout + result.stderr);
-
   for (const file of ['theme-colors.json', 'contrast-report.json', 'fixture-inventory.json', 'summary.md']) {
     assert.equal(fs.existsSync(path.join(resultsDir, file)), true, `${file} was not generated`);
   }
@@ -41,7 +54,6 @@ test('diagnostics covers the full configured contrast matrix', () => {
   assert.ok(report.length >= 35, `expected at least 35 checks, found ${report.length}`);
   assert.ok(report.every((entry) => typeof entry.ratio === 'number'));
   assert.ok(report.every((entry) => entry.ratio >= 3), 'every configured pair must meet the 3:1 minimum');
-
   const requiredPairs = [
     'input.placeholderForeground / input.background',
     'menu.selectionForeground / menu.selectionBackground',
@@ -66,9 +78,17 @@ test('theme quality checks pass', () => {
   assert.equal(result.status, 0, result.stdout + result.stderr);
 });
 
-test('theme JSON parses and exposes semantic tokens', () => {
+test('semantic roles remain mapped to the canonical palette', () => {
   const theme = JSON.parse(fs.readFileSync(baseTheme, 'utf8'));
-  assert.equal(theme.name, 'Ava Night');
-  assert.ok(Object.keys(theme.colors).length >= 100);
-  assert.ok(Object.keys(theme.semanticTokenColors).length >= 15);
+  const palette = JSON.parse(fs.readFileSync(palettePath, 'utf8'));
+  for (const [token, paletteName] of Object.entries(semanticExpectations)) {
+    const value = theme.semanticTokenColors[token];
+    const color = typeof value === 'string' ? value : value?.foreground;
+    assert.equal(color.toUpperCase(), palette[paletteName].toUpperCase(), `${token} drifted from palette.${paletteName}`);
+  }
+});
+
+test('theme JSON exposes the complete semantic role set', () => {
+  const theme = JSON.parse(fs.readFileSync(baseTheme, 'utf8'));
+  for (const token of Object.keys(semanticExpectations)) assert.equal(token in theme.semanticTokenColors, true, `missing semantic token: ${token}`);
 });
