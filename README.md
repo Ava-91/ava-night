@@ -2,7 +2,7 @@
 
 # 🌙 Ava Night
 
-### Where code meets the quiet of midnight.
+## Where code meets the quiet of midnight
 
 A calm, midnight Visual Studio Code theme built around **focus, readable contrast, and meaningful color**.
 
@@ -13,7 +13,7 @@ A calm, midnight Visual Studio Code theme built around **focus, readable contras
 [![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 [![Diagnostics](https://img.shields.io/badge/QA-automated-61AFEF?style=flat-square)](tools/theme-diagnostics.js)
 
-**Calm • Focused • Readable • Midnight**
+Calm • Focused • Readable • Midnight
 
 </div>
 
@@ -135,25 +135,25 @@ Press **F5** in Visual Studio Code to launch an Extension Development Host.
 
 The fixture matrix is maintained under `tests/syntax`. A checkmark means the repository has a dedicated fixture for that language; semantic highlighting indicates that the theme explicitly defines semantic token roles relevant to the language.
 
-| Language | Syntax | Semantic | Fixture |
-| --- | :---: | :---: | :---: |
-| TypeScript | ✅ | ✅ | ✅ |
-| TSX / React | ✅ | ✅ | ✅ |
-| JavaScript | ✅ | ✅ | ✅ |
-| Python | ✅ | ✅ | ✅ |
-| Rust | ✅ | ✅ | ✅ |
-| Go | ✅ | ✅ | ✅ |
-| C++ | ✅ | ✅ | ✅ |
-| CSS | ✅ | — | ✅ |
-| HTML | ✅ | — | ✅ |
-| JSON | ✅ | — | ✅ |
-| JSONC | ✅ | — | ✅ |
-| Markdown | ✅ | — | ✅ |
-| Shell | ✅ | — | ✅ |
-| SQL | ✅ | — | ✅ |
-| YAML | ✅ | — | ✅ |
+| Language        | Syntax   | Semantic  | Fixture |
+| --------------- | :------: | :-------: | :-----: |
+| TypeScript      | ✅        | ✅        | ✅      |
+| TSX / React     | ✅        | ✅        | ✅      |
+| JavaScript      | ✅        | ✅        | ✅      |
+| Python          | ✅        | ✅        | ✅      |
+| Rust            | ✅        | ✅        | ✅      |
+| Go              | ✅        | ✅        | ✅      |
+| C++             | ✅        | ✅        | ✅      |
+| CSS             | ✅        | —         | ✅      |
+| HTML            | ✅        | —         | ✅      |
+| JSON            | ✅        | —         | ✅      |
+| JSONC           | ✅        | —         | ✅      |
+| Markdown        | ✅        | —         | ✅      |
+| Shell           | ✅        | —         | ✅      |
+| SQL             | ✅        | —         | ✅      |
+| YAML            | ✅        | —         | ✅      |
 
-**Semantic roles currently covered include:** functions, methods, macros, builtins, keywords, namespaces, modules, types, classes, interfaces, enums, enum members, type parameters, strings, regexps, decorators, annotations, labels, events, numbers, variables, readonly variables, properties, readonly properties, parameters, operators, modifiers, and comments.
+Semantic roles currently covered include: functions, methods, macros, builtins, keywords, namespaces, modules, types, classes, interfaces, enums, enum members, type parameters, strings, regexps, decorators, annotations, labels, events, numbers, variables, readonly variables, properties, readonly properties, parameters, operators, modifiers, and comments.
 
 ---
 
