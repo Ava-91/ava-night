@@ -116,6 +116,9 @@ jobs:
       - name: Run theme quality checks
         run: npm run quality
 
+      - name: Run accessibility and visual QA
+        run: npm run qa
+
       - name: Run test suite
         run: npm test
 

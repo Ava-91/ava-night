@@ -79,13 +79,16 @@ Ava Night is backed by machine-readable theme QA rather than relying only on vis
 npm test
 npm run diagnostics
 npm run quality
+npm run qa
 ```
+
+`npm run qa` is the single audit entry point. It runs diagnostics and quality checks, verifies important contrast/state coverage and the 15-language fixture matrix, then writes `tests/results/qa-report.json` and `tests/results/qa-report.md`.
 
 The repository validates theme metadata, color definitions, semantic roles, contrast pairs, syntax fixtures, and VSIX packaging in CI.
 
 The local VS Code inspector under `tools/theme-inspector/` can also record semantic-token information from the fixture matrix into `tests/results/`.
 
-> **No screenshot is required for the programmatically testable parts of the theme.** Exact workbench rendering and layout remain visual concerns.
+> **No screenshot is required for the programmatically testable parts of the theme.** Exact workbench rendering and layout remain visual concerns; the QA report makes the machine-checkable portion directly inspectable from the repository.
 
 ---
 
@@ -124,6 +127,7 @@ Press **F5** in Visual Studio Code to launch an Extension Development Host.
 | `npm test` | Run automated tests |
 | `npm run diagnostics` | Generate theme diagnostics |
 | `npm run quality` | Run comprehensive theme quality checks |
+| `npm run qa` | Run the complete accessibility/visual QA audit |
 
 ---
 
@@ -157,7 +161,6 @@ The fixture matrix is maintained under `tests/syntax`. A checkmark means the rep
 
 - Additional language-specific optimizations
 - Expanded semantic highlighting
-- Accessibility improvements
 - More polished terminal colors
 - Future Ava Night variants
 
