@@ -1,0 +1,14 @@
+{
+  "name": "Ava Night",
+  "version": 1.3,
+  "enabled": true,
+  "disabled": false,
+  "missing": null,
+  "colors": {
+    "background": "#131722",
+    "foreground": "#D8DEE9",
+    "accent": "#61AFEF"
+  },
+  "features": ["semanticTokens", "terminal", "diff", "markdown"],
+  "nested": [{ "id": 1, "active": true }, { "id": 2, "active": false }]
+}
