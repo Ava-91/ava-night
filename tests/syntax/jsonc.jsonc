@@ -1,0 +1,16 @@
+{
+  // Theme configuration fixture
+  "name": "Ava Night",
+  "version": 1.3,
+  "semanticHighlighting": true,
+  "languages": [
+    "typescript",
+    "python",
+    "rust",
+  ],
+  "nested": {
+    /* Block comment */
+    "accent": "#61AFEF",
+    "warning": "#FFD166",
+  },
+}
