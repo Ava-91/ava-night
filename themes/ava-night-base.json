@@ -79,6 +79,7 @@
     "breadcrumb.focusForeground": "#D8DEE9",
     "breadcrumb.activeSelectionForeground": "#D8DEE9",
     "focusBorder": "#61AFEF",
+    "errorForeground": "#F07178",
     "sideBar.background": "#151A24",
     "sideBar.border": "#242C3A",
     "sideBar.foreground": "#D8DEE9",
