@@ -9,6 +9,7 @@ const fixtureDir = path.join(__dirname, 'syntax');
 const resultsDir = path.join(__dirname, 'results');
 const diagnosticScript = path.join(root, 'tools', 'theme-diagnostics.js');
 const qualityScript = path.join(root, 'tools', 'theme-quality.js');
+const qaScript = path.join(root, 'tools', 'theme-qa.js');
 const baseTheme = path.join(root, 'themes', 'ava-night-base.json');
 const palettePath = path.join(root, 'themes', 'palette.json');
 
@@ -82,6 +83,27 @@ test('theme quality checks pass', () => {
   const result = run(qualityScript);
   assert.equal(result.error, undefined);
   assert.equal(result.status, 0, result.stdout + result.stderr);
+});
+
+test('accessibility and visual QA report passes with complete coverage', () => {
+  const result = run(qaScript);
+  assert.equal(result.error, undefined);
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  const report = JSON.parse(fs.readFileSync(path.join(resultsDir, 'qa-report.json'), 'utf8'));
+  assert.equal(report.status, 'pass');
+  assert.deepEqual(report.checks, {
+    diagnostics: true,
+    quality: true,
+    requiredContrastPairs: true,
+    contrastThresholds: true,
+    missingColors: true,
+    fixtureInventory: true,
+  });
+  assert.equal(report.contrast.total, 40);
+  assert.equal(report.contrast.passing, 40);
+  assert.deepEqual(report.fixtures.languages, expectedFixtures);
+  assert.ok(Object.values(report.states).every(Boolean));
+  assert.equal(fs.existsSync(path.join(resultsDir, 'qa-report.md')), true);
 });
 
 test('semantic roles remain mapped to the canonical palette', () => {
