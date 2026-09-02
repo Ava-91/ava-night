@@ -43,6 +43,7 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require('fs');
+          const path = require('path');
 
           const parseJsonc = (source) => {
             let output = '';
@@ -98,17 +99,25 @@ jobs:
             return JSON.parse(output.replace(/,\s*([}\]])/g, '$1'));
           };
 
-          const themePath = JSON.parse(fs.readFileSync('package.json', 'utf8'))
-            .contributes.themes.find((entry) => entry.label === 'Ava Night').path;
-          const source = fs.readFileSync(themePath, 'utf8');
-          const parsed = parseJsonc(source);
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const themePath = pkg.contributes.themes.find((entry) => entry.label === 'Ava Night').path;
+          const parsed = parseJsonc(fs.readFileSync(themePath, 'utf8'));
           if (parsed.name !== 'Ava Night') throw new Error('Theme name does not match package metadata.');
           if (!parsed.include) throw new Error('Published theme must include the base theme.');
-          const basePath = require('path').resolve(require('path').dirname(themePath), parsed.include);
+          const basePath = path.resolve(path.dirname(themePath), parsed.include);
           if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${parsed.include}`);
           parseJsonc(fs.readFileSync(basePath, 'utf8'));
           console.log('Validated published theme and included base theme as JSONC.');
           NODE
+
+      - name: Run theme diagnostics
+        run: npm run diagnostics
+
+      - name: Run theme quality checks
+        run: npm run quality
+
+      - name: Run test suite
+        run: npm test
 
       - name: Install VSCE
         run: npm install --global @vscode/vsce
