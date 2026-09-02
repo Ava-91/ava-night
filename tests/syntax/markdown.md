@@ -19,7 +19,7 @@ A **midnight** theme with *restrained* accents and ~~noise~~ clarity.
 - [x] Editor
 - [ ] Every language
 
-`inline code` and `**literal markdown**`.
+`inline code` and **literal markdown**.
 
 ```ts
 const theme: string = "Ava Night";

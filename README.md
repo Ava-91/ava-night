@@ -66,6 +66,7 @@ Ava Night is for developers who prefer **calm over clutter**. Its visual identit
 | Success / added | `#98C379` |
 | Warning / modified | `#FFD166` |
 | Error / deleted | `#F07178` |
+| Numeric constants | `#E5C07B` |
 
 The palette deliberately separates **identity** from **semantics**: blue and cyan establish the interface, while the remaining accents communicate syntax and state.
 
@@ -80,15 +81,18 @@ npm test
 npm run diagnostics
 npm run quality
 npm run qa
+npm run vscode:smoke
+npm run vsix:smoke
+npm run release:check
 ```
 
 `npm run qa` is the single audit entry point. It runs diagnostics and quality checks, verifies important contrast/state coverage and the 15-language fixture matrix, then writes `tests/results/qa-report.json` and `tests/results/qa-report.md`.
 
-The repository validates theme metadata, color definitions, semantic roles, contrast pairs, syntax fixtures, and VSIX packaging in CI.
+The repository validates theme metadata, color definitions, semantic roles, contrast pairs, syntax fixtures, and VSIX packaging in CI. The VS Code smoke test also verifies that a packaged extension can be installed and launched with the Ava Night theme selected.
 
-The local VS Code inspector under `tools/theme-inspector/` can also record semantic-token information from the fixture matrix into `tests/results/`.
+The local VS Code inspector under `tools/theme-inspector/` can record semantic-token information from the fixture matrix into `tests/results/` for regression review.
 
-> **No screenshot is required for the programmatically testable parts of the theme.** Exact workbench rendering and layout remain visual concerns; the QA report makes the machine-checkable portion directly inspectable from the repository.
+> **No screenshot is required for the programmatically testable parts of the theme.** Exact workbench rendering and layout remain visual concerns; the automated reports make the machine-checkable portion directly inspectable from the repository.
 
 ---
 
@@ -128,12 +132,15 @@ Press **F5** in Visual Studio Code to launch an Extension Development Host.
 | `npm run diagnostics` | Generate theme diagnostics |
 | `npm run quality` | Run comprehensive theme quality checks |
 | `npm run qa` | Run the complete accessibility/visual QA audit |
+| `npm run vscode:smoke` | Install the VSIX and launch a representative fixture in VS Code |
+| `npm run vsix:smoke` | Validate the packaged VSIX contents |
+| `npm run release:check` | Validate release metadata and packaging prerequisites |
 
 ---
 
 ## 📚 Language Support
 
-The fixture matrix is maintained under `tests/syntax`. A checkmark means the repository has a dedicated fixture for that language; semantic highlighting indicates that the theme explicitly defines semantic token roles relevant to the language.
+The fixture matrix is maintained under `tests/syntax`. A checkmark means the repository has a dedicated fixture for that language. Semantic coverage refers to the theme's explicit semantic-token roles; it does not guarantee that every language server emits every role.
 
 | Language        | Syntax   | Semantic  | Fixture |
 | --------------- | :------: | :-------: | :-----: |
@@ -147,11 +154,11 @@ The fixture matrix is maintained under `tests/syntax`. A checkmark means the rep
 | CSS             | ✅        | —         | ✅      |
 | HTML            | ✅        | —         | ✅      |
 | JSON            | ✅        | —         | ✅      |
-| JSONC           | ✅        | —         | ✅      |
+| JSONC            | ✅        | —         | ✅      |
 | Markdown        | ✅        | —         | ✅      |
-| Shell           | ✅        | —         | ✅      |
-| SQL             | ✅        | —         | ✅      |
-| YAML            | ✅        | —         | ✅      |
+| Shell            | ✅        | —         | ✅      |
+| SQL              | ✅        | —         | ✅      |
+| YAML             | ✅        | —         | ✅      |
 
 Semantic roles currently covered include: functions, methods, macros, builtins, keywords, namespaces, modules, types, classes, interfaces, enums, enum members, type parameters, strings, regexps, decorators, annotations, labels, events, numbers, variables, readonly variables, properties, readonly properties, parameters, operators, modifiers, and comments.
 

@@ -120,3 +120,28 @@ test('theme JSON exposes the complete semantic role set', () => {
   const theme = JSON.parse(fs.readFileSync(baseTheme, 'utf8'));
   for (const token of Object.keys(semanticExpectations)) assert.equal(token in theme.semanticTokenColors, true, `missing semantic token: ${token}`);
 });
+
+test('Markdown fixture and Git diff/merge roles are explicitly covered', () => {
+  const markdown = fs.readFileSync(path.join(fixtureDir, 'markdown.md'), 'utf8');
+  for (const construct of ['# Ava Night', '**midnight**', '*restrained*', '~~noise~~', '[Repository]', '`inline code`', '```ts', '> Code', '- [x]', '| Role | Color |', '<span']) {
+    assert.ok(markdown.includes(construct), `Markdown fixture is missing ${construct}`);
+  }
+
+  const theme = JSON.parse(fs.readFileSync(baseTheme, 'utf8'));
+  const requiredColors = [
+    'diffEditor.insertedTextBackground', 'diffEditor.removedTextBackground',
+    'diffEditor.insertedTextBorder', 'diffEditor.removedTextBorder',
+    'diffEditor.unchangedRegionBackground', 'diffEditor.unchangedRegionForeground',
+    'merge.currentHeaderBackground', 'merge.currentContentBackground',
+    'merge.incomingHeaderBackground', 'merge.incomingContentBackground',
+    'merge.commonContentBackground', 'merge.commonHeaderBackground',
+    'editorOverviewRuler.addedForeground', 'editorOverviewRuler.modifiedForeground',
+    'editorOverviewRuler.deletedForeground',
+  ];
+  for (const key of requiredColors) assert.equal(key in theme.colors, true, `missing Git/diff/merge color: ${key}`);
+
+  const markdownScopes = theme.tokenColors.flatMap((entry) => entry.scope || []);
+  for (const scope of ['markup.heading', 'markup.bold', 'markup.italic', 'markup.strikethrough', 'markup.underline.link', 'markup.inline.raw', 'markup.quote', 'markup.list']) {
+    assert.ok(markdownScopes.includes(scope), `missing Markdown scope: ${scope}`);
+  }
+});
