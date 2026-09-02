@@ -24,14 +24,39 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate theme JSON
-        run: node -e "const fs=require('fs'); for (const f of ['themes/Ava Night-color-theme.json','themes/Ava Night UI-refined-color-theme.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('Theme JSON is valid.')"
+      - name: Validate extension metadata and theme
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const contribution = pkg.contributes?.themes?.find((entry) => entry.label === 'Ava Night');
+          if (!contribution) throw new Error('Ava Night theme contribution is missing.');
+          if (contribution.uiTheme !== 'vs-dark') throw new Error('Ava Night must use the vs-dark UI theme.');
+          if (!fs.existsSync(contribution.path)) throw new Error(`Theme file not found: ${contribution.path}`);
+          const theme = JSON.parse(fs.readFileSync(contribution.path, 'utf8'));
+          if (theme.name !== 'Ava Night') throw new Error('Published theme name does not match package metadata.');
+          if (!theme.include) throw new Error('Published theme must include its base theme.');
+          const basePath = path.resolve(path.dirname(contribution.path), theme.include);
+          if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${theme.include}`);
+          JSON.parse(fs.readFileSync(basePath, 'utf8'));
+          console.log(`Validated ${contribution.path} and ${theme.include}.`);
+          NODE
+
+      - name: Run diagnostics
+        run: npm run diagnostics
+
+      - name: Run theme quality checks
+        run: npm run quality
+
+      - name: Run tests
+        run: npm test
 
       - name: Install VSCE
         run: npm install --global @vscode/vsce
 
       - name: Package VSIX
-        run: vsce package
+        run: vsce package --no-dependencies
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
