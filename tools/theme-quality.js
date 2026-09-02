@@ -6,6 +6,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseThemePath = path.join(root, 'themes', 'ava-night-base.json');
 const publishedThemePath = path.join(root, 'themes', 'ava-night.json');
+const palettePath = path.join(root, 'themes', 'palette.json');
 const fixtureDir = path.join(root, 'tests', 'syntax');
 
 const REQUIRED_UI_COLORS = [
@@ -20,7 +21,7 @@ const REQUIRED_UI_COLORS = [
 const REQUIRED_SEMANTIC_COLORS = [
   'comment', 'function', 'method', 'keyword', 'class', 'interface', 'type',
   'string', 'number', 'regexp', 'decorator', 'variable', 'property', 'parameter',
-  'operator',
+  'operator', 'event',
 ];
 
 const CONTRAST_PAIRS = [
@@ -41,6 +42,27 @@ const CONTRAST_PAIRS = [
   ['semantic.string', 'editor.background'],
   ['semantic.number', 'editor.background'],
 ];
+
+const PALETTE_BINDINGS = {
+  background: '#131722',
+  deepBackground: '#0F1117',
+  surface: '#151A24',
+  border: '#242C3A',
+  borderActive: '#3A4559',
+  text: '#D8DEE9',
+  mutedText: '#8B95A7',
+  blue: '#61AFEF',
+  cyan: '#7FDBFF',
+  purple: '#B48EFA',
+  green: '#98C379',
+  yellow: '#FFD166',
+  red: '#F07178',
+  number: '#E5C07B',
+  selection: '#2A4365',
+  selectionOverride: '#203A5C',
+  hover: '#2B4A6B',
+  buttonSecondaryHover: '#30445C',
+};
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -91,11 +113,17 @@ function fail(message) {
 function main() {
   const base = readJson(baseThemePath);
   const published = readJson(publishedThemePath);
+  const palette = readJson(palettePath);
 
   if (published.name !== 'Ava Night') fail('published theme name must be Ava Night');
   if (typeof published.include !== 'string') fail('published theme must include a base theme');
   const includedPath = path.resolve(path.dirname(publishedThemePath), published.include);
   if (!fs.existsSync(includedPath)) fail(`included base theme does not exist: ${published.include}`);
+
+  for (const [name, expected] of Object.entries(PALETTE_BINDINGS)) {
+    if (!isHexColor(palette[name])) fail(`palette token is missing or invalid: ${name}`);
+    else if (palette[name].toUpperCase() !== expected) fail(`palette drift detected for ${name}: expected ${expected}, found ${palette[name]}`);
+  }
 
   const colors = base.colors || {};
   for (const key of REQUIRED_UI_COLORS) {
@@ -114,9 +142,7 @@ function main() {
   }
 
   for (const [foreground, background] of CONTRAST_PAIRS) {
-    const fg = foreground.startsWith('semantic.')
-      ? semantic[foreground.slice(9)]
-      : colors[foreground];
+    const fg = foreground.startsWith('semantic.') ? semantic[foreground.slice(9)] : colors[foreground];
     const bg = colors[background];
     const fgColor = typeof fg === 'string' ? fg : fg?.foreground;
     if (!isHexColor(fgColor) || !isHexColor(bg)) {
@@ -127,12 +153,19 @@ function main() {
     if (ratio < 3) fail(`contrast below 3:1: ${foreground} / ${background} = ${ratio.toFixed(2)}:1`);
   }
 
+  const childColors = published.colors || {};
+  for (const [key, value] of Object.entries(childColors)) {
+    if (colors[key] && colors[key].toUpperCase() === String(value).toUpperCase()) {
+      fail(`redundant child override duplicates base color: ${key}`);
+    }
+  }
+
   if (!fs.existsSync(fixtureDir)) fail('syntax fixture directory is missing');
   const fixtures = fs.readdirSync(fixtureDir).filter((name) => !name.startsWith('.'));
   if (fixtures.length < 15) fail(`expected at least 15 syntax fixtures, found ${fixtures.length}`);
 
   if (process.exitCode) process.exitCode = 1;
-  else console.log(`Theme quality checks passed: ${fixtures.length} fixtures, required UI colors, semantic tokens, and contrast pairs validated.`);
+  else console.log(`Theme quality checks passed: ${fixtures.length} fixtures, palette, required UI colors, semantic tokens, contrast pairs, and child overrides validated.`);
 }
 
 main();
