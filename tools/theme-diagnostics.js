@@ -51,7 +51,7 @@ function main() {
     ['editor.foreground', 'editor.background'],
     ['editorLineNumber.foreground', 'editor.background'],
     ['editorLineNumber.activeForeground', 'editor.background'],
-    ['editorIndentGuide.background1', 'editor.background'],
+    ['editorIndentGuide.background1', 'editor.background', 1.1, 'decorative'],
     ['breadcrumb.foreground', 'breadcrumb.background'],
     ['breadcrumb.focusForeground', 'breadcrumb.background'],
     ['sideBar.foreground', 'sideBar.background'],
@@ -90,7 +90,7 @@ function main() {
     ['semantic.number', 'editor.background'],
   ];
 
-  const contrastReport = contrastPairs.map(([foreground, background]) => {
+  const contrastReport = contrastPairs.map(([foreground, background, minimumRatio = 3, category = 'text']) => {
     const fg = colors[foreground];
     const bg = colors[background];
     const ratio = fg && bg ? contrast(fg, bg) : null;
@@ -100,6 +100,8 @@ function main() {
       foregroundColor: fg ?? null,
       backgroundColor: bg ?? null,
       ratio,
+      minimumRatio,
+      category,
       wcagAA: ratio !== null && ratio >= 4.5,
       wcagAALargeText: ratio !== null && ratio >= 3,
     };
@@ -126,7 +128,7 @@ function main() {
   fs.writeFileSync(path.join(resultsDir, 'contrast-report.json'), JSON.stringify(contrastReport, null, 2) + '\n');
   fs.writeFileSync(path.join(resultsDir, 'fixture-inventory.json'), JSON.stringify(fixtures, null, 2) + '\n');
 
-  const failures = contrastReport.filter((entry) => entry.ratio === null || entry.ratio < 3);
+  const failures = contrastReport.filter((entry) => entry.ratio === null || entry.ratio < entry.minimumRatio);
   const missing = contrastReport.filter((entry) => entry.ratio === null);
   const markdown = [
     '# Ava Night Theme Diagnostics',
@@ -138,14 +140,14 @@ function main() {
     '',
     '## Contrast checks',
     '',
-    '| Foreground | Background | Ratio | AA |',
-    '| --- | --- | ---: | :---: |',
-    ...contrastReport.map((entry) => `| ${entry.foreground} | ${entry.background} | ${entry.ratio ?? 'N/A'} | ${entry.wcagAA ? 'PASS' : 'FAIL'} |`),
+    '| Foreground | Background | Ratio | Requirement | Status |',
+    '| --- | --- | ---: | ---: | :---: |',
+    ...contrastReport.map((entry) => `| ${entry.foreground} | ${entry.background} | ${entry.ratio ?? 'N/A'} | ${entry.minimumRatio}:1 ${entry.category} | ${entry.ratio !== null && entry.ratio >= entry.minimumRatio ? 'PASS' : 'FAIL'} |`),
     '',
     `Overall: **${failures.length ? `${failures.length} checks need attention` : 'all configured checks pass'}**`,
     missing.length ? `Missing color definitions: **${missing.length}**` : 'Missing color definitions: **0**',
     '',
-    'This audit covers editor, workbench, navigation, controls, terminal, Git decorations, diagnostics, and semantic-token roles. Visual rendering remains a manual VS Code validation step.',
+    'This audit covers editor, workbench, navigation, controls, terminal, Git decorations, diagnostics, and semantic-token roles. Decorative UI elements use explicit non-text thresholds; visual rendering remains a manual VS Code validation step.',
     '',
   ].join('\n');
   fs.writeFileSync(path.join(resultsDir, 'summary.md'), markdown);

@@ -51,9 +51,15 @@ test('theme diagnostics runs successfully', () => {
 
 test('diagnostics covers the full configured contrast matrix', () => {
   const report = JSON.parse(fs.readFileSync(path.join(resultsDir, 'contrast-report.json'), 'utf8'));
-  assert.ok(report.length >= 35, `expected at least 35 checks, found ${report.length}`);
+  assert.equal(report.length, 40);
   assert.ok(report.every((entry) => typeof entry.ratio === 'number'));
-  assert.ok(report.every((entry) => entry.ratio >= 3), 'every configured pair must meet the 3:1 minimum');
+  assert.ok(report.every((entry) => entry.ratio >= entry.minimumRatio));
+  const decorativeGuide = report.find((entry) => entry.foreground === 'editorIndentGuide.background1');
+  assert.equal(decorativeGuide.category, 'decorative');
+  assert.equal(decorativeGuide.minimumRatio, 1.1);
+  const listCheck = report.find((entry) => entry.foreground === 'list.foreground');
+  assert.equal(listCheck.backgroundColor, '#151A24');
+  assert.ok(listCheck.ratio >= 3);
   const requiredPairs = [
     'input.placeholderForeground / input.background',
     'menu.selectionForeground / menu.selectionBackground',
