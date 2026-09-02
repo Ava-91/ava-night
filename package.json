@@ -15,6 +15,7 @@
   "bugs": {"url": "https://github.com/Ava-91/ava-night/issues"},
   "scripts": {
     "diagnostics": "node tools/theme-diagnostics.js",
+    "quality": "node tools/theme-quality.js",
     "test": "node --test tests/diagnostics.test.js"
   },
   "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
