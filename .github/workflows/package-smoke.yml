@@ -1,0 +1,47 @@
+name: Package Smoke
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install VSCE
+        run: npm install --global @vscode/vsce
+
+      - name: Package extension for CI validation
+        run: vsce package --no-dependencies
+
+      - name: Validate VSIX package
+        run: npm run vsix:smoke
+
+      - name: Upload disposable VSIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: ava-night-ci-vsix
+          path: "*.vsix"
+
+      - name: Upload VSIX smoke report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ava-night-vsix-smoke-report
+          path: tests/results/vsix-smoke-report.json
