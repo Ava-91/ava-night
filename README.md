@@ -88,7 +88,33 @@ Ava Night is designed for and currently previewed/tested against:
 - Integrated Terminal
 - VS Code Workbench
 
-The broader language test matrix and remaining validation notes are documented in [Issue #2](https://github.com/Ava-91/ava-night/issues/2).
+The broader language fixture matrix lives under [`tests/syntax`](tests/syntax), and the machine-readable diagnostics are documented in [`tools/theme-inspector`](tools/theme-inspector) and [`tests/README.md`](tests/README.md).
+
+---
+
+## 🔍 Machine-readable theme diagnostics
+
+You do **not** need to send screenshots to inspect the parts of the theme that VS Code can expose programmatically.
+
+### Static diagnostics
+
+Run:
+
+```bash
+npm run diagnostics
+```
+
+This writes deterministic reports to `tests/results/` covering theme colors, selected WCAG contrast pairs, semantic-token definitions, and the available syntax fixtures.
+
+### VS Code semantic-token inspection
+
+Open the repository in VS Code, then use **Developer: Install Extension from Location...** on `tools/theme-inspector`, or launch that folder as an Extension Development Host. Run **Ava Night: Inspect Theme** from the Command Palette.
+
+The inspector opens every fixture in `tests/syntax` and records the semantic-token legend and token positions into `tests/results/semantic-tokens.json`.
+
+These reports are designed to be committed or attached to an issue/PR so theme behavior can be reviewed as structured evidence instead of screenshots.
+
+**Limit:** semantic-token and color diagnostics can expose what VS Code reports programmatically, but exact workbench/layout rendering (tabs, sidebar spacing, terminal appearance, etc.) is still visual and may require a screenshot or automated rendering test later.
 
 ---
 

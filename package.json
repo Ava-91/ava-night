@@ -13,5 +13,9 @@
   "homepage": "https://github.com/Ava-91/ava-night",
   "repository": {"type": "git", "url": "https://github.com/Ava-91/ava-night.git"},
   "bugs": {"url": "https://github.com/Ava-91/ava-night/issues"},
+  "scripts": {
+    "diagnostics": "node tools/theme-diagnostics.js",
+    "test": "node --test tests/diagnostics.test.js"
+  },
   "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
 }
