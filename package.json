@@ -17,6 +17,7 @@
     "diagnostics": "node tools/theme-diagnostics.js",
     "quality": "node tools/theme-quality.js",
     "qa": "node tools/theme-qa.js",
+    "vscode:smoke": "node tools/vscode-smoke.js",
     "test": "node --test tests/diagnostics.test.js"
   },
   "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
