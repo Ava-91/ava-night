@@ -6,12 +6,8 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 const base = JSON.parse(fs.readFileSync(path.join(root, 'themes', 'ava-night-base.json'), 'utf8'));
-const themes = [
-  ['Ava Night', 'themes/ava-night.json'],
-  ['Ava Night — Moonlit', 'themes/ava-night-moonlit.json'],
-  ['Ava Night — Eclipse', 'themes/ava-night-eclipse.json'],
-  ['Ava Night — Afterglow', 'themes/ava-night-afterglow.json'],
-];
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'theme-variants.json'), 'utf8'));
+const themes = manifest.variants;
 
 function luminance(hex) {
   const rgb = hex.slice(1, 7).match(/../g).map((part) => parseInt(part, 16) / 255);
@@ -26,29 +22,29 @@ function contrast(foreground, background) {
 
 test('every theme family member is registered in package metadata', () => {
   const contributions = pkg.contributes.themes;
-  for (const [label, file] of themes) {
-    assert.ok(contributions.some((entry) => entry.label === label && entry.path === \`./\${file}\` && entry.uiTheme === 'vs-dark'), \`missing contribution: \${label}\`);
-    assert.ok(fs.existsSync(path.join(root, file)), \`missing theme file: \${file}\`);
+  for (const variant of themes) {
+    assert.ok(contributions.some((entry) => entry.label === variant.label && entry.path === './' + variant.path && entry.uiTheme === 'vs-dark'), 'missing contribution: ' + variant.label);
+    assert.ok(fs.existsSync(path.join(root, variant.path)), 'missing theme file: ' + variant.path);
   }
 });
 
-test('every theme variant has valid JSON, the shared base, and core UI colors', () => {
-  for (const [label, file] of themes) {
-    const theme = JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
-    assert.equal(theme.name, label, \`\${label}: theme name\`);
-    if (file !== 'themes/ava-night.json') {
-      assert.equal(theme.include, './ava-night-base.json', \`\${label}: shared base\`);
-    }
+test('every theme variant has valid JSON, the shared base, and its declared palette', () => {
+  for (const variant of themes) {
+    const theme = JSON.parse(fs.readFileSync(path.join(root, variant.path), 'utf8'));
+    assert.equal(theme.name, variant.label, variant.label + ': theme name');
+    if (variant.path !== 'themes/ava-night.json') assert.equal(theme.include, './ava-night-base.json', variant.label + ': shared base');
+    const colors = { ...base.colors, ...(theme.colors || {}) };
+    assert.equal(colors['editor.background'].toUpperCase(), variant.background, variant.label + ': editor background drift');
+    assert.equal((theme.colors && theme.colors['focusBorder'] || base.colors['focusBorder']).toUpperCase(), variant.accent, variant.label + ': accent drift');
     for (const key of ['editor.background', 'editor.foreground', 'sideBar.background', 'panel.background', 'terminal.background']) {
-      const color = theme.colors?.[key] ?? base.colors?.[key];
-      assert.match(color ?? '', /^#[0-9a-f]{6}$/i, \`\${label}: valid \${key}\`);
+      assert.match(colors[key] || '', /^#[0-9a-f]{6}$/i, variant.label + ': valid ' + key);
     }
   }
 });
 
 test('editor text and key interface states retain readable contrast in every variant', () => {
-  for (const [label, file] of themes) {
-    const theme = JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
+  for (const variant of themes) {
+    const theme = JSON.parse(fs.readFileSync(path.join(root, variant.path), 'utf8'));
     const colors = { ...base.colors, ...(theme.colors || {}) };
     const pairs = [
       ['editor.foreground', 'editor.background', 4.5],
@@ -60,21 +56,19 @@ test('editor text and key interface states retain readable contrast in every var
       ['focusBorder', 'editor.background', 3],
     ];
     for (const [foreground, background, minimum] of pairs) {
-      assert.ok(colors[foreground] && colors[background], \`\${label}: missing contrast pair \${foreground} / \${background}\`);
+      assert.ok(colors[foreground] && colors[background], variant.label + ': missing pair ' + foreground + ' / ' + background);
       const ratio = contrast(colors[foreground], colors[background]);
-      assert.ok(ratio >= minimum, \`\${label}: \${foreground} / \${background} contrast \${ratio.toFixed(2)}:1 is below \${minimum}:1\`);
+      assert.ok(ratio >= minimum, variant.label + ': ' + foreground + ' / ' + background + ' contrast ' + ratio.toFixed(2) + ':1 is below ' + minimum + ':1');
     }
   }
 });
 
 test('each variant keeps the same semantic role coverage as the core theme', () => {
   const required = ['function', 'method', 'keyword', 'class', 'interface', 'type', 'string', 'number', 'variable', 'property', 'comment'];
-  for (const [label, file] of themes) {
-    const theme = JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
+  for (const variant of themes) {
+    const theme = JSON.parse(fs.readFileSync(path.join(root, variant.path), 'utf8'));
     const semantic = { ...(base.semanticTokenColors || {}), ...(theme.semanticTokenColors || {}) };
-    for (const token of required) {
-      assert.ok(semantic[token], \`\${label}: missing semantic role \${token}\`);
-    }
+    for (const token of required) assert.ok(semantic[token], variant.label + ': missing semantic role ' + token);
   }
 });
 
