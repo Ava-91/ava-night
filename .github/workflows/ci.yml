@@ -12,7 +12,6 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,88 +25,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate extension metadata
+      - name: Validate every registered theme and shared base
         run: |
           node <<'NODE'
-          const fs = require('fs');
+          const fs = require('node:fs');
+          const path = require('node:path');
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const theme = pkg.contributes?.themes?.find((entry) => entry.label === 'Ava Night');
-          if (!theme) throw new Error('Ava Night theme contribution is missing.');
-          if (theme.uiTheme !== 'vs-dark') throw new Error('Ava Night must use the vs-dark UI theme.');
-          if (!fs.existsSync(theme.path)) throw new Error(`Theme file not found: ${theme.path}`);
-          if (pkg.license !== 'MIT') throw new Error('Expected the MIT license.');
-          console.log(`Validated ${theme.path} from package.json.`);
-          NODE
-
-      - name: Validate theme JSONC
-        run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-
-          const parseJsonc = (source) => {
-            let output = '';
-            let inString = false;
-            let escaped = false;
-            let inLineComment = false;
-            let inBlockComment = false;
-
-            for (let i = 0; i < source.length; i++) {
-              const char = source[i];
-              const next = source[i + 1];
-
-              if (inLineComment) {
-                if (char === '\n') {
-                  inLineComment = false;
-                  output += char;
-                }
-                continue;
-              }
-
-              if (inBlockComment) {
-                if (char === '*' && next === '/') {
-                  inBlockComment = false;
-                  i++;
-                } else if (char === '\n') {
-                  output += '\n';
-                }
-                continue;
-              }
-
-              if (inString) {
-                output += char;
-                if (escaped) escaped = false;
-                else if (char === '\\') escaped = true;
-                else if (char === '"') inString = false;
-                continue;
-              }
-
-              if (char === '"') {
-                inString = true;
-                output += char;
-              } else if (char === '/' && next === '/') {
-                inLineComment = true;
-                i++;
-              } else if (char === '/' && next === '*') {
-                inBlockComment = true;
-                i++;
-              } else {
-                output += char;
-              }
+          const labels = new Set();
+          for (const entry of pkg.contributes?.themes ?? []) {
+            if (labels.has(entry.label)) throw new Error('Duplicate theme label: ' + entry.label);
+            labels.add(entry.label);
+            if (entry.uiTheme !== 'vs-dark') throw new Error('Unexpected UI theme: ' + entry.label);
+            const file = path.resolve(entry.path);
+            if (!fs.existsSync(file)) throw new Error('Theme file missing: ' + entry.path);
+            const theme = JSON.parse(fs.readFileSync(file, 'utf8'));
+            if (theme.name !== entry.label) throw new Error('Theme name mismatch: ' + entry.label);
+            if (theme.include) {
+              const base = path.resolve(path.dirname(file), theme.include);
+              if (!fs.existsSync(base)) throw new Error('Included base missing for ' + entry.label);
+              JSON.parse(fs.readFileSync(base, 'utf8'));
             }
-
-            return JSON.parse(output.replace(/,\s*([}\]])/g, '$1'));
-          };
-
-          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const themePath = pkg.contributes.themes.find((entry) => entry.label === 'Ava Night').path;
-          const parsed = parseJsonc(fs.readFileSync(themePath, 'utf8'));
-          if (parsed.name !== 'Ava Night') throw new Error('Theme name does not match package metadata.');
-          if (!parsed.include) throw new Error('Published theme must include the base theme.');
-          const basePath = path.resolve(path.dirname(themePath), parsed.include);
-          if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${parsed.include}`);
-          parseJsonc(fs.readFileSync(basePath, 'utf8'));
-          console.log('Validated published theme and included base theme as JSONC.');
+          }
+          if (labels.size < 4) throw new Error('Expected at least four registered Ava Night editions.');
+          if (pkg.license !== 'MIT') throw new Error('Expected the MIT license.');
+          console.log('Validated ' + labels.size + ' registered theme editions.');
           NODE
 
       - name: Run theme diagnostics
@@ -116,7 +57,7 @@ jobs:
       - name: Run theme quality checks
         run: npm run quality
 
-      - name: Run accessibility and visual QA
+      - name: Run accessibility and theme-family QA
         run: npm run qa
 
       - name: Run test suite
@@ -125,16 +66,11 @@ jobs:
       - name: Install VSCE
         run: npm install --global @vscode/vsce
 
-      - name: Package extension for smoke testing
+      - name: Package extension
         run: vsce package --no-dependencies
 
-      - name: Install pinned VS Code runtime
-        run: |
-          curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
-          sudo apt-get update
-          sudo apt-get install -y /tmp/code.deb xvfb
-      - name: Package extension for smoke testing
-        run: vsce package --no-dependencies
+      - name: Verify packaged theme editions
+        run: npm run vsix:smoke
 
       - name: Install pinned VS Code runtime
         run: |
@@ -158,3 +94,4 @@ jobs:
         with:
           name: ava-night-vscode-smoke
           path: tests/results/vscode-smoke-report.json
+          if-no-files-found: warn
