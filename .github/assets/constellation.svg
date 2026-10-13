@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Ava Night constellation</title>
+  <desc id="desc">A quiet crescent moon and three connected stars on a midnight background.</desc>
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B2340"/>
+      <stop offset="1" stop-color="#0F1117"/>
+    </linearGradient>
+    <linearGradient id="moon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D6C7FF"/>
+      <stop offset="1" stop-color="#7FDBFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#night)"/>
+  <circle cx="218" cy="234" r="112" fill="url(#moon)"/>
+  <circle cx="268" cy="192" r="104" fill="#111522"/>
+  <g fill="none" stroke="#7FDBFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+    <path d="M302 112 365 166 405 105"/>
+    <path d="M365 166 390 239"/>
+  </g>
+  <g fill="#D6C7FF">
+    <path d="m302 94 5 13 14 5-14 5-5 14-5-14-14-5 14-5z"/>
+    <path d="m365 149 6 13 13 4-13 5-6 13-5-13-13-5 13-4z"/>
+  </g>
+  <path d="m405 86 6 14 14 5-14 5-6 14-5-14-14-5 14-5z" fill="#7FDBFF"/>
+  <circle cx="390" cy="239" r="6" fill="#A8E6CF"/>
+  <circle cx="139" cy="116" r="4" fill="#D6C7FF" opacity=".8"/>
+  <circle cx="112" cy="300" r="3" fill="#7FDBFF" opacity=".75"/>
+  <circle cx="321" cy="344" r="4" fill="#D6C7FF" opacity=".7"/>
+</svg>
