@@ -62,10 +62,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y /tmp/code.deb xvfb
 
+      - name: Resolve packaged VSIX path
+        run: echo "VSIX_PATH=$GITHUB_WORKSPACE/ava-night-$(node -p "require('./package.json').version").vsix" >> "$GITHUB_ENV"
+
       - name: Run VS Code rendering smoke test
         env:
           CODE_BIN: code
-          VSIX_PATH: ${{ github.workspace }}/ava-night-1.2.0.vsix
         run: npm run vscode:smoke
 
       - name: Upload release VSIX
