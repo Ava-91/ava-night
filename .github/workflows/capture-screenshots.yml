@@ -1,0 +1,87 @@
+name: Capture theme screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/capture-screenshots.yml"
+      - "themes/**"
+      - "tests/syntax/typescript.ts"
+      - "tools/capture-screenshots.js"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ava-night-screenshots-main
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install VS Code and virtual display
+        run: |
+          curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
+          sudo apt-get update
+          sudo apt-get install -y /tmp/code.deb xvfb
+
+      - name: Package extension
+        run: npx --yes @vscode/vsce package --no-dependencies
+
+      - name: Capture real VS Code screenshots
+        env:
+          CODE_BIN: code
+          VSIX_PATH: ava-night-1.3.0.vsix
+        run: xvfb-run -a npm run screenshots
+
+      - name: Stage screenshots for the repository
+        run: |
+          mkdir -p docs/screenshots
+          cp tests/results/screenshots/ava-night.png docs/screenshots/
+          cp tests/results/screenshots/moonlit.png docs/screenshots/
+          cp tests/results/screenshots/eclipse.png docs/screenshots/
+          cp tests/results/screenshots/afterglow.png docs/screenshots/
+          cp tests/results/screenshots/manifest.json docs/screenshots/
+          node -e "const m=require('./docs/screenshots/manifest.json'); if(m.results.length!==4 || m.results.some(x=>!x.captured)) process.exit(1)"
+
+      - name: Upload capture artifact for inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ava-night-vscode-screenshots
+          path: |
+            tests/results/screenshots/
+            docs/screenshots/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit screenshots to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/
+          if git diff --cached --quiet; then
+            echo "Screenshots are already up to date."
+            exit 0
+          fi
+          git commit -m "docs: refresh real VS Code theme screenshots"
+          git push origin HEAD:main
