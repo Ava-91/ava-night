@@ -4,6 +4,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const pkg = JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+function loadTheme(entry) {
+  const file=path.join(root,entry.path);
+  const child=JSON.parse(fs.readFileSync(file,'utf8'));
+  if (!child.include) return child;
+  const basePath=path.resolve(path.dirname(file),child.include);
+  const base=JSON.parse(fs.readFileSync(basePath,'utf8'));
+  return {...base,...child,colors:{...(base.colors||{}),...(child.colors||{})},semanticTokenColors:{...(base.semanticTokenColors||{}),...(child.semanticTokenColors||{})},tokenColors:child.tokenColors||base.tokenColors};
+}
 function luminance(hex) {
   const values = [1,3,5].map(i => parseInt(hex.slice(i,i+2),16)/255).map(v => v <= .04045 ? v/12.92 : ((v+.055)/1.055)**2.4);
   return values.reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);
@@ -16,7 +24,7 @@ test('theme labels and paths are unique', () => {
 });
 test('each theme has matching metadata, syntax tokens, and semantic tokens', () => {
   for (const entry of pkg.contributes.themes) {
-    const theme=JSON.parse(fs.readFileSync(path.join(root,entry.path),'utf8'));
+    const theme=loadTheme(entry);
     assert.equal(theme.name,entry.label);
     assert.ok(theme.colors['editor.background']);
     assert.ok(theme.colors['editor.foreground']);
@@ -26,7 +34,7 @@ test('each theme has matching metadata, syntax tokens, and semantic tokens', () 
 });
 test('primary text, sidebar text, and terminal text meet 4.5:1 contrast', () => {
   for (const entry of pkg.contributes.themes) {
-    const c=JSON.parse(fs.readFileSync(path.join(root,entry.path),'utf8')).colors;
+    const c=loadTheme(entry).colors;
     for (const [fg,bg] of [['editor.foreground','editor.background'],['sideBar.foreground','sideBar.background'],['terminal.foreground','terminal.background']]) {
       assert.ok(contrast(c[fg],c[bg])>=4.5,`${entry.label}: ${fg} on ${bg}`);
     }
