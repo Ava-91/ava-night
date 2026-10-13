@@ -6,7 +6,7 @@
 
 A calm, midnight Visual Studio Code theme family built around **focus, readable contrast, and meaningful color**.
 
-![Ava Night theme family preview](.github/assets/theme-family.svg)
+![Ava Night preview](.github/assets/hero.png)
 
 [![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
 [![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](LICENSE)
@@ -73,7 +73,7 @@ The checked-in language screenshots below show representative code examples. For
 
 ### Constellation brand mark
 
-![Ava Night constellation artwork](assets/ava-night-constellation.svg)
+The editable constellation artwork is maintained as a vector source at `assets/ava-night-constellation.svg`.
 
 ## ♿ Accessibility and quality
 
