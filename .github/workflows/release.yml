@@ -10,7 +10,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,39 +23,41 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate extension metadata and theme
+      - name: Validate all editions and shared base
         run: |
           node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
+          const fs = require('node:fs');
+          const path = require('node:path');
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const contribution = pkg.contributes?.themes?.find((entry) => entry.label === 'Ava Night');
-          if (!contribution) throw new Error('Ava Night theme contribution is missing.');
-          if (contribution.uiTheme !== 'vs-dark') throw new Error('Ava Night must use the vs-dark UI theme.');
-          if (!fs.existsSync(contribution.path)) throw new Error(`Theme file not found: ${contribution.path}`);
-          const theme = JSON.parse(fs.readFileSync(contribution.path, 'utf8'));
-          if (theme.name !== 'Ava Night') throw new Error('Published theme name does not match package metadata.');
-          if (!theme.include) throw new Error('Published theme must include its base theme.');
-          const basePath = path.resolve(path.dirname(contribution.path), theme.include);
-          if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${theme.include}`);
-          JSON.parse(fs.readFileSync(basePath, 'utf8'));
-          console.log(`Validated ${contribution.path} and ${theme.include}.`);
+          for (const entry of pkg.contributes.themes) {
+            const themePath = path.resolve(entry.path);
+            if (!fs.existsSync(themePath)) throw new Error('Missing theme: ' + entry.path);
+            const theme = JSON.parse(fs.readFileSync(themePath, 'utf8'));
+            if (theme.name !== entry.label) throw new Error('Theme label mismatch: ' + entry.label);
+            if (theme.include) {
+              const base = path.resolve(path.dirname(themePath), theme.include);
+              if (!fs.existsSync(base)) throw new Error('Missing shared base for ' + entry.label);
+              JSON.parse(fs.readFileSync(base, 'utf8'));
+            }
+          }
           NODE
 
-      - name: Run diagnostics
-        run: npm run diagnostics
-
-      - name: Run theme quality checks
-        run: npm run quality
-
-      - name: Run tests
-        run: npm test
+      - name: Run diagnostics and QA
+        run: |
+          npm run diagnostics
+          npm run quality
+          npm run qa
+          npm test
+          npm run release:check
 
       - name: Install VSCE
         run: npm install --global @vscode/vsce
 
       - name: Package VSIX
         run: vsce package --no-dependencies
+
+      - name: Verify packaged editions
+        run: npm run vsix:smoke
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
