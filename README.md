@@ -11,7 +11,7 @@ A midnight-inspired **Visual Studio Code theme family** designed to make long co
 **Four atmospheres. One thoughtful color language.**
 
 <p>
-  <a href="#-choose-your-night"><strong>Explore the themes</strong></a> ·
+  <a href="#-find-your-atmosphere"><strong>Explore the themes</strong></a> ·
   <a href="#-get-started"><strong>Install</strong></a> ·
   <a href="https://github.com/Ava-91/ava-night/issues"><strong>Give feedback</strong></a>
 </p>
