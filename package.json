@@ -48,7 +48,8 @@
     "screenshots": "node tools/capture-screenshots.js",
     "variants:check": "node tools/theme-variants-check.js",
     "release:check": "node tools/release-check.js",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "visual:regression": "node tools/visual-regression.js"
   },
   "contributes": {
     "themes": [
