@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101426"/><stop offset="1" stop-color="#1d1730"/></linearGradient><linearGradient id="moon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d6a5ff"/><stop offset="1" stop-color="#78dce8"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="246" cy="226" r="126" fill="url(#moon)"/>
+  <circle cx="300" cy="183" r="118" fill="#111526"/>
+  <path d="M111 365 176 323 232 346 290 282 346 301 404 230" fill="none" stroke="#78dce8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".88"/>
+  <g fill="#e7dded"><circle cx="111" cy="365" r="7"/><circle cx="176" cy="323" r="7"/><circle cx="232" cy="346" r="7"/><circle cx="290" cy="282" r="7"/><circle cx="346" cy="301" r="7"/><circle cx="404" cy="230" r="7"/></g>
+  <g fill="#78dce8"><circle cx="117" cy="132" r="4"/><circle cx="370" cy="118" r="5"/><circle cx="405" cy="167" r="3"/><circle cx="143" cy="230" r="3"/></g>
+</svg>

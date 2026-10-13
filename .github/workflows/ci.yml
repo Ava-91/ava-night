@@ -2,8 +2,7 @@ name: Validate
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 permissions:
@@ -12,7 +11,6 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,135 +24,67 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate extension metadata
+      - name: Validate extension metadata and every theme edition
         run: |
           node <<'NODE'
-          const fs = require('fs');
+          const fs = require('node:fs');
+          const path = require('node:path');
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const theme = pkg.contributes?.themes?.find((entry) => entry.label === 'Ava Night');
-          if (!theme) throw new Error('Ava Night theme contribution is missing.');
-          if (theme.uiTheme !== 'vs-dark') throw new Error('Ava Night must use the vs-dark UI theme.');
-          if (!fs.existsSync(theme.path)) throw new Error(`Theme file not found: ${theme.path}`);
           if (pkg.license !== 'MIT') throw new Error('Expected the MIT license.');
-          console.log(`Validated ${theme.path} from package.json.`);
+          if (pkg.name !== 'ava-night') throw new Error('Unexpected extension package name.');
+          if (pkg.icon !== 'icon.png' || !fs.existsSync(pkg.icon)) throw new Error('The Marketplace PNG icon is missing.');
+          if (!Array.isArray(pkg.contributes?.themes) || pkg.contributes.themes.length < 4) throw new Error('Expected four selectable themes.');
+          for (const entry of pkg.contributes.themes) {
+            const themePath = path.resolve(entry.path);
+            if (!fs.existsSync(themePath)) throw new Error(`Theme file missing: ${entry.path}`);
+            const theme = JSON.parse(fs.readFileSync(themePath, 'utf8'));
+            if (theme.name !== entry.label) throw new Error(`Theme label mismatch: ${entry.label} / ${theme.name}`);
+            if (entry.uiTheme !== 'vs-dark') throw new Error(`Unexpected UI theme for ${entry.label}`);
+          }
+          console.log(`Validated metadata and ${pkg.contributes.themes.length} theme editions.`);
           NODE
 
-      - name: Validate theme JSONC
-        run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-
-          const parseJsonc = (source) => {
-            let output = '';
-            let inString = false;
-            let escaped = false;
-            let inLineComment = false;
-            let inBlockComment = false;
-
-            for (let i = 0; i < source.length; i++) {
-              const char = source[i];
-              const next = source[i + 1];
-
-              if (inLineComment) {
-                if (char === '\n') {
-                  inLineComment = false;
-                  output += char;
-                }
-                continue;
-              }
-
-              if (inBlockComment) {
-                if (char === '*' && next === '/') {
-                  inBlockComment = false;
-                  i++;
-                } else if (char === '\n') {
-                  output += '\n';
-                }
-                continue;
-              }
-
-              if (inString) {
-                output += char;
-                if (escaped) escaped = false;
-                else if (char === '\\') escaped = true;
-                else if (char === '"') inString = false;
-                continue;
-              }
-
-              if (char === '"') {
-                inString = true;
-                output += char;
-              } else if (char === '/' && next === '/') {
-                inLineComment = true;
-                i++;
-              } else if (char === '/' && next === '*') {
-                inBlockComment = true;
-                i++;
-              } else {
-                output += char;
-              }
-            }
-
-            return JSON.parse(output.replace(/,\s*([}\]])/g, '$1'));
-          };
-
-          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const themePath = pkg.contributes.themes.find((entry) => entry.label === 'Ava Night').path;
-          const parsed = parseJsonc(fs.readFileSync(themePath, 'utf8'));
-          if (parsed.name !== 'Ava Night') throw new Error('Theme name does not match package metadata.');
-          if (!parsed.include) throw new Error('Published theme must include the base theme.');
-          const basePath = path.resolve(path.dirname(themePath), parsed.include);
-          if (!fs.existsSync(basePath)) throw new Error(`Included base theme not found: ${parsed.include}`);
-          parseJsonc(fs.readFileSync(basePath, 'utf8'));
-          console.log('Validated published theme and included base theme as JSONC.');
-          NODE
-
-      - name: Run theme diagnostics
+      - name: Run diagnostics
         run: npm run diagnostics
 
       - name: Run theme quality checks
         run: npm run quality
 
-      - name: Run accessibility and visual QA
+      - name: Run theme-family and contrast checks
+        run: npm run variants:check
+
+      - name: Run full QA report
         run: npm run qa
 
-      - name: Run test suite
+      - name: Run tests
         run: npm test
 
       - name: Install VSCE
         run: npm install --global @vscode/vsce
 
-      - name: Package extension for smoke testing
+      - name: Package VSIX
         run: vsce package --no-dependencies
+
+      - name: Validate packaged extension
+        run: npm run vsix:smoke
 
       - name: Install pinned VS Code runtime
         run: |
           curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
           sudo apt-get update
           sudo apt-get install -y /tmp/code.deb xvfb
-      - name: Package extension for smoke testing
-        run: vsce package --no-dependencies
 
-      - name: Install pinned VS Code runtime
-        run: |
-          curl -L --fail --retry 3 -o /tmp/code.deb https://update.code.visualstudio.com/1.100.0/linux-deb-x64/stable
-          sudo apt-get update
-          sudo apt-get install -y /tmp/code.deb xvfb
-
-      - name: Find packaged VSIX
-        id: package
-        run: echo "path=$(pwd)/$(ls ava-night-*.vsix)" >> "$GITHUB_OUTPUT"
-
-      - name: Run VS Code rendering smoke test
+      - name: Install extension and launch VS Code smoke test
         env:
           CODE_BIN: code
-          VSIX_PATH: ${{ steps.package.outputs.path }}
+          VSIX_PATH: ${{ github.workspace }}/ava-night-1.3.0.vsix
         run: npm run vscode:smoke
 
-      - name: Upload VS Code smoke report
+      - name: Upload QA and smoke reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ava-night-vscode-smoke
-          path: tests/results/vscode-smoke-report.json
+          name: ava-night-qa-reports
+          path: |
+            tests/results/*.json
+            tests/results/*.md
