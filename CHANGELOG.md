@@ -8,16 +8,18 @@ This project follows the spirit of [Keep a Changelog](https://keepachangelog.com
 
 ### Added
 
-- Cross-language syntax fixtures covering TypeScript, TSX, JavaScript, JSX, HTML, CSS, JSON, Python, PHP, C#, Java, Markdown, YAML, and SQL.
-- A documented syntax-validation checklist for future theme changes.
-- Clearer Ava Night branding guidance through the README's midnight/icy-accent visual language.
+- Moonlit, Eclipse, and Afterglow theme editions alongside the original Ava Night palette.
+- A coordinated theme-family preview and constellation brand artwork.
+- Automated theme-edition metadata checks and 4.5:1 contrast checks for core editor, sidebar, and terminal text.
+- Reproducible VS Code screenshot capture and an opt-in PNG pixel-baseline comparison workflow.
+- Accessibility, language-support, and screenshot-review documentation.
 
 ### Changed
 
-- Refined the workbench into distinct midnight surface layers.
-- Strengthened the blue/cyan interaction hierarchy.
-- Reserved cyan for special and high-attention syntax/UI details.
-- Improved semantic color-role consistency for functions, keywords, types, values, and errors.
+- Expanded CI to validate every selectable edition, run the theme-family checks, and inspect the packaged VSIX.
+- Cleaned up duplicate packaging and VS Code installation steps in CI.
+- Aligned npm lockfile metadata with the extension package version.
+- Clarified the limits of semantic highlighting and screenshot comparisons.
 
 ## [1.1.0]
 
