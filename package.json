@@ -1,18 +1,48 @@
 {
   "name": "ava-night",
   "displayName": "Ava Night",
-  "description": "A calm midnight Visual Studio Code theme with balanced contrast, semantic accents, and a focused coding experience.",
+  "description": "A calm midnight VS Code theme family with carefully balanced contrast, semantic syntax colors, and a focused coding experience.",
   "version": "1.3.0",
   "publisher": "Ava-91",
   "license": "MIT",
   "icon": "icon.png",
-  "engines": {"vscode": ">=1.100.0"},
-  "categories": ["Themes"],
-  "keywords": ["ava-night", "ava night theme", "theme", "dark theme", "midnight theme", "night theme", "vscode theme", "color theme", "editor theme", "syntax highlighting", "dark mode"],
-  "galleryBanner": {"color": "#0F1117", "theme": "dark"},
+  "engines": {
+    "vscode": ">=1.100.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "ava-night",
+    "ava night theme",
+    "theme",
+    "dark theme",
+    "midnight theme",
+    "night theme",
+    "vscode theme",
+    "color theme",
+    "editor theme",
+    "syntax highlighting",
+    "dark mode",
+    "moonlit theme",
+    "eclipse theme",
+    "afterglow theme",
+    "accessible theme",
+    "theme family",
+    "constellation"
+  ],
+  "galleryBanner": {
+    "color": "#0F1117",
+    "theme": "dark"
+  },
   "homepage": "https://github.com/Ava-91/ava-night",
-  "repository": {"type": "git", "url": "https://github.com/Ava-91/ava-night.git"},
-  "bugs": {"url": "https://github.com/Ava-91/ava-night/issues"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ava-91/ava-night.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ava-91/ava-night/issues"
+  },
   "scripts": {
     "diagnostics": "node tools/theme-diagnostics.js",
     "quality": "node tools/theme-quality.js",
@@ -22,5 +52,28 @@
     "release:check": "node tools/release-check.js",
     "test": "node --test tests/*.test.js"
   },
-  "contributes": {"themes": [{"label": "Ava Night", "uiTheme": "vs-dark", "path": "./themes/ava-night.json"}]}
+  "contributes": {
+    "themes": [
+      {
+        "label": "Ava Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ava-night.json"
+      },
+      {
+        "label": "Ava Night — Moonlit",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ava-night-moonlit.json"
+      },
+      {
+        "label": "Ava Night — Eclipse",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ava-night-eclipse.json"
+      },
+      {
+        "label": "Ava Night — Afterglow",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ava-night-afterglow.json"
+      }
+    ]
+  }
 }
