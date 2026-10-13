@@ -29,6 +29,9 @@ const required = [
   'extension/themes/ava-night.json',
   'extension/themes/ava-night-base.json',
   'extension/themes/palette.json',
+  'extension/themes/ava-night-moonlit.json',
+  'extension/themes/ava-night-eclipse.json',
+  'extension/themes/ava-night-afterglow.json',
 ];
 
 for (const entry of required) {
