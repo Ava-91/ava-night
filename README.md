@@ -17,7 +17,7 @@ A midnight-inspired **Visual Studio Code theme family** designed to make long co
 </p>
 
 [![CI](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml/badge.svg)](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=for-the-badge)](https://github.com/Ava-91/ava-night/releases)
+[![Version](https://img.shields.io/badge/version-1.4.0-61AFEF?style=for-the-badge)](https://github.com/Ava-91/ava-night/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-98C379?style=for-the-badge)](LICENSE)
 [![VS Code](https://img.shields.io/badge/Visual%20Studio%20Code-1.100%2B-7FDBFF?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
