@@ -1,0 +1,31 @@
+{
+  "generatedBy": "tools/capture-screenshots.js",
+  "captureMethod": "VS Code 1.100.0 window captured from Xvfb using scrot",
+  "fixture": "tests/syntax/typescript.ts",
+  "results": [
+    {
+      "theme": "Ava Night",
+      "path": "tests/results/screenshots/ava-night.png",
+      "captured": true,
+      "exitCode": 0
+    },
+    {
+      "theme": "Ava Night — Moonlit",
+      "path": "tests/results/screenshots/moonlit.png",
+      "captured": true,
+      "exitCode": 0
+    },
+    {
+      "theme": "Ava Night — Eclipse",
+      "path": "tests/results/screenshots/eclipse.png",
+      "captured": true,
+      "exitCode": 0
+    },
+    {
+      "theme": "Ava Night — Afterglow",
+      "path": "tests/results/screenshots/afterglow.png",
+      "captured": true,
+      "exitCode": 0
+    }
+  ]
+}
