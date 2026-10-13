@@ -2,38 +2,62 @@
 
 # 🌙 Ava Night
 
-## Where code meets the quiet of midnight
+### Where code meets the quiet of midnight
 
-A calm, midnight Visual Studio Code theme built around **focus, readable contrast, and meaningful color**.
+A calm, midnight Visual Studio Code theme family built around **focus, readable contrast, and meaningful color**.
 
-![Ava Night preview](.github/assets/hero.png)
+![Ava Night theme family preview](.github/assets/theme-family.svg)
 
 [![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
-[![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](https://github.com/Ava-91/ava-night/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
-[![Diagnostics](https://img.shields.io/badge/QA-automated-61AFEF?style=flat-square)](tools/theme-diagnostics.js)
+[![CI](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml/badge.svg)](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml)
 
-Calm • Focused • Readable • Midnight
+**Calm • Focused • Readable • Midnight**
 
 </div>
 
 ---
 
-## ✨ Why Ava Night?
+## ✨ Pick your atmosphere
 
-Ava Night is for developers who prefer **calm over clutter**. Its visual identity is simple: **a monochrome moonlit mark outside, a midnight-blue workspace inside.**
+| Edition | Character |
+| --- | --- |
+| **Ava Night** | Deep midnight navy, electric blue, icy cyan, lavender, and mint |
+| **Ava Night — Moonlit** | Cooler blue-green surfaces with clear icy highlights |
+| **Ava Night — Eclipse** | Plum-black surfaces with violet and lilac accents |
+| **Ava Night — Afterglow** | Quiet forest surfaces with mint and soft green accents |
 
-- 🌌 Deep, layered midnight surfaces
-- 🔵 Electric blue for primary interaction and focus
-- 🩵 Icy cyan for high-attention details
-- 🟣 Violet for structural syntax
-- 🟢 Green for strings and success states
-- 🟡 Gold for types, numbers, warnings, and modified states
-- 🔴 Red for errors and destructive states
-- 🧠 Semantic highlighting with consistent color roles
-- ⚡ Zero runtime dependencies
+All editions are selectable through **Preferences → Color Theme**. The variants are standalone theme files, so their syntax and workbench palettes can be reviewed and tested independently.
 
-## 📸 See the theme in action
+## 🌌 Why Ava Night?
+
+- Layered midnight surfaces rather than pure-black backgrounds
+- Consistent color roles for functions, keywords, types, strings, numbers, and errors
+- Coordinated workbench, terminal, Git, diff, selection, and focus colors
+- Semantic-token colors alongside TextMate syntax scopes
+- Local, dependency-light extension with automated validation
+
+### Signature color philosophy
+
+> Every color should communicate meaning—not compete for attention.
+
+| Role | Ava Night palette |
+| --- | --- |
+| Deep background | `#0F1117` |
+| Editor background | `#131722` |
+| Primary text | `#D8DEE9` |
+| Focus / interaction | `#61AFEF` |
+| High-attention accent | `#7FDBFF` |
+| Structural syntax | `#B48EFA` |
+| Strings / success | `#98C379` |
+| Warnings / modified | `#FFD166` |
+| Errors / destructive states | `#F07178` |
+| Numeric constants | `#E5C07B` |
+
+## 📸 Screenshots
+
+The checked-in language screenshots below show representative code examples. For current screenshots of all four editions from your installed VS Code runtime, follow [the reproducible screenshot workflow](docs/SCREENSHOTS.md).
 
 ### React + TypeScript
 
@@ -47,140 +71,75 @@ Ava Night is for developers who prefer **calm over clutter**. Its visual identit
 
 ![JSON syntax highlighting](.github/assets/json.png)
 
----
+### Constellation brand mark
 
-## 🎨 Color Philosophy
+![Ava Night constellation artwork](assets/ava-night-constellation.svg)
 
-> **Every color should communicate meaning—not compete for attention.**
+## ♿ Accessibility and quality
 
-| Role | Hex |
-| --- | --- |
-| Deep background | `#0F1117` |
-| Editor background | `#131722` |
-| Panel background | `#151A24` |
-| Borders | `#242C3A` |
-| Primary text | `#D8DEE9` |
-| Focus / primary accent | `#61AFEF` |
-| Special / high-attention accent | `#7FDBFF` |
-| Secondary structure | `#B48EFA` |
-| Success / added | `#98C379` |
-| Warning / modified | `#FFD166` |
-| Error / deleted | `#F07178` |
-| Numeric constants | `#E5C07B` |
+Ava Night checks color definitions, key contrast pairs, theme metadata, semantic token roles, language fixtures, and VSIX packaging in automated tests. The core editor, sidebar, and terminal text pairs are checked against a **4.5:1 contrast target**.
 
-The palette deliberately separates **identity** from **semantics**: blue and cyan establish the interface, while the remaining accents communicate syntax and state.
+No color theme can guarantee comfort for every person, display, language server, or extension. Please report a hard-to-read state with the edition name and a screenshot. See [Accessibility & visual quality](docs/ACCESSIBILITY.md) for the manual review checklist and limitations.
 
----
+## 🧪 Run the quality gates
 
-## 🧪 Quality & diagnostics
-
-Ava Night is backed by machine-readable theme QA rather than relying only on visual inspection.
+Requires Node.js 22. VS Code and the VSCE packaging tool are required for package/install smoke checks and screenshot capture.
 
 ```bash
+npm ci
 npm test
 npm run diagnostics
 npm run quality
 npm run qa
-npm run vscode:smoke
+npm run variants:check
+npx --yes @vscode/vsce package --no-dependencies
 npm run vsix:smoke
+npm run vscode:smoke
+npm run screenshots
 npm run release:check
 ```
 
-`npm run qa` is the single audit entry point. It runs diagnostics and quality checks, verifies important contrast/state coverage and the 15-language fixture matrix, then writes `tests/results/qa-report.json` and `tests/results/qa-report.md`.
+- `npm test`: unit/regression tests for theme metadata, syntax assets, and contrast.
+- `npm run diagnostics`: emits color, contrast, and fixture reports under `tests/results/`.
+- `npm run quality`: checks required UI colors, semantic roles, palette integrity, and fixtures.
+- `npm run qa`: runs the diagnostics suite and theme-family checks.
+- `npm run variants:check`: validates each selectable edition and key text contrast.
+- `npm run vsix:smoke`: checks required files and metadata inside the packaged extension.
+- `npm run vscode:smoke`: installs the VSIX into an isolated profile and launches VS Code with a fixture.
+- `npm run screenshots`: attempts reproducible real-editor screenshots for all editions; set `CODE_BIN` or `VSIX_PATH` if needed.
+- `npm run release:check`: confirms the release tag matches the package version.
 
-The repository validates theme metadata, color definitions, semantic roles, contrast pairs, syntax fixtures, and VSIX packaging in CI. The VS Code smoke test also verifies that a packaged extension can be installed and launched with the Ava Night theme selected.
+The generated reports are build artifacts; they are not committed automatically. Pixel-perfect screenshot regression is not claimed because OS fonts, GPU rendering, and VS Code versions can vary. See [the screenshot workflow](docs/SCREENSHOTS.md).
 
-The local VS Code inspector under `tools/theme-inspector/` can record semantic-token information from the fixture matrix into `tests/results/` for regression review.
+## 🧑‍💻 Language coverage
 
-> **No screenshot is required for the programmatically testable parts of the theme.** Exact workbench rendering and layout remain visual concerns; the automated reports make the machine-checkable portion directly inspectable from the repository.
+Repository fixtures include TypeScript/TSX, JavaScript, Python, Rust, Go, C++, CSS, HTML, JSON/JSONC, Markdown, Shell, SQL, and YAML. Syntax grammar coverage is distinct from semantic highlighting: semantic-token availability depends on the language server and its configuration.
 
----
+See [Language support](docs/LANGUAGE-SUPPORT.md) for the scope and inspection instructions.
 
 ## 🚀 Install
 
-### Visual Studio Marketplace
-
-1. Open **Extensions** (`Ctrl + Shift + X`).
+1. Open Extensions in VS Code (`Ctrl + Shift + X`).
 2. Search for **Ava Night**.
-3. Click **Install**.
-4. Select **Ava Night** from **Preferences → Color Theme**.
+3. Install the extension.
+4. Open **Preferences → Color Theme** and choose the edition you prefer.
 
-### VSIX
-
-1. Download the latest release.
-2. Open **Extensions**.
-3. Select **⋯ → Install from VSIX...**.
-4. Choose the `.vsix` file.
-
----
+You can also install a packaged `.vsix` using **Extensions → ⋯ → Install from VSIX...**.
 
 ## 🛠 Development
 
 ```bash
 git clone https://github.com/Ava-91/ava-night.git
 cd ava-night
-npm install
+npm ci
 ```
 
-Press **F5** in Visual Studio Code to launch an Extension Development Host.
-
-### Useful commands
-
-| Command | Purpose |
-| --- | --- |
-| `npm test` | Run automated tests |
-| `npm run diagnostics` | Generate theme diagnostics |
-| `npm run quality` | Run comprehensive theme quality checks |
-| `npm run qa` | Run the complete accessibility/visual QA audit |
-| `npm run vscode:smoke` | Install the VSIX and launch a representative fixture in VS Code |
-| `npm run vsix:smoke` | Validate the packaged VSIX contents |
-| `npm run release:check` | Validate release metadata and packaging prerequisites |
-
----
-
-## 📚 Language Support
-
-The fixture matrix is maintained under `tests/syntax`. A checkmark means the repository has a dedicated fixture for that language. Semantic coverage refers to the theme's explicit semantic-token roles; it does not guarantee that every language server emits every role.
-
-| Language        | Syntax   | Semantic  | Fixture |
-| --------------- | :------: | :-------: | :-----: |
-| TypeScript      | ✅        | ✅        | ✅      |
-| TSX / React     | ✅        | ✅        | ✅      |
-| JavaScript      | ✅        | ✅        | ✅      |
-| Python          | ✅        | ✅        | ✅      |
-| Rust            | ✅        | ✅        | ✅      |
-| Go              | ✅        | ✅        | ✅      |
-| C++             | ✅        | ✅        | ✅      |
-| CSS             | ✅        | —         | ✅      |
-| HTML            | ✅        | —         | ✅      |
-| JSON            | ✅        | —         | ✅      |
-| JSONC            | ✅        | —         | ✅      |
-| Markdown        | ✅        | —         | ✅      |
-| Shell            | ✅        | —         | ✅      |
-| SQL              | ✅        | —         | ✅      |
-| YAML             | ✅        | —         | ✅      |
-
-Semantic roles currently covered include: functions, methods, macros, builtins, keywords, namespaces, modules, types, classes, interfaces, enums, enum members, type parameters, strings, regexps, decorators, annotations, labels, events, numbers, variables, readonly variables, properties, readonly properties, parameters, operators, modifiers, and comments.
-
----
-
-## 📈 Roadmap
-
-- Additional language-specific optimizations
-- Expanded semantic highlighting
-- More polished terminal colors
-- Future Ava Night variants
-
----
+Press **F5** to launch an Extension Development Host. The local semantic-token inspector is documented in `tools/theme-inspector/README.md`.
 
 ## 🤝 Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/Ava-91/ava-night/issues).
-
-If Ava Night improves your coding experience, consider leaving a ⭐ on the repository.
-
----
+Found an issue or have an idea? [Open an issue](https://github.com/Ava-91/ava-night/issues).
 
 ## 📄 License
 
-Released under the **MIT License**.
+Released under the [MIT License](LICENSE).
