@@ -143,7 +143,7 @@ npx --yes @vscode/vsce package --no-dependencies
 npm run vsix:smoke
 npm run vscode:smoke
 npm run screenshots
-npm run release:check
+RELEASE_VERSION=1.4.0 npm run release:check
 ```
 
 | Command | What it checks |
