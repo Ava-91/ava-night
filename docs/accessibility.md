@@ -1,38 +1,25 @@
-# Accessibility
+# Accessibility and visual quality
 
-Ava Night aims to stay comfortable for long coding sessions without making important states hard to see.
+Ava Night treats color as a communication system, not decoration.
 
-## Core text contrast
+## Automated checks
 
-The main editor text uses `#D8DEE9` on `#131722`, which provides strong contrast.
+Run `npm test`, `npm run diagnostics`, `npm run quality`, `npm run qa`, and `npm run variants:check`. The theme-family check requires at least **4.5:1 contrast** for the primary editor text, sidebar text, and terminal text. The existing diagnostics also report a wider set of UI and semantic color pairs.
 
-Muted UI text uses `#8B95A7` instead of the older `#5D6778`. This keeps secondary text readable while still making it visually quieter.
+WCAG contrast guidance is a useful baseline, but a theme is not automatically WCAG-conformant just because selected color pairs pass. Focus visibility, non-text UI boundaries, syntax distinguishability, font rendering, transparency, and user-specific display settings still matter.
 
-## Semantic colors
+## Manual review checklist
 
-Semantic colors are reserved for meaning:
+- [ ] Review TypeScript/TSX, Python, and Rust at normal editor font size.
+- [ ] Check comments, inactive tabs, line numbers, placeholders, and inlay hints.
+- [ ] Check keyboard focus, selection, find results, diagnostics, and bracket matching.
+- [ ] Review terminal ANSI colors, Git decorations, diffs, and merge conflicts.
+- [ ] Test with semantic highlighting both enabled and disabled.
+- [ ] Do not rely on color alone to communicate errors or status.
+- [ ] Review on more than one display or brightness setting when possible.
 
-- Blue: functions and primary interactive syntax
-- Purple: keywords and language structure
-- Gold: types, classes, and warnings
-- Green: strings and added/success states
-- Cyan: special syntax and events
-- Red: errors and invalid syntax
-- Neutral: variables, properties, parameters, and operators
+## Scope and limitations
 
-Variables and properties intentionally stay neutral so that important syntax does not become visually noisy.
+This project supplies a VS Code color theme; it does not control every extension's custom webview or guarantee the same semantic tokens across language servers. Semantic token names and availability vary by language server. The screenshot capture helper requires a VS Code build that supports its screenshot command-line option. Generated screenshots are evidence for review, not a substitute for interactive testing.
 
-## State visibility
-
-Important states use more than a single subtle color difference where possible:
-
-- Active controls use borders and backgrounds.
-- Errors and warnings use both visible foreground colors and UI state styling.
-- Git changes use distinct added, modified, deleted, and conflict colors.
-- Selections use a dedicated background so selected text remains obvious.
-
-## Validation
-
-The core palette was checked against the editor backgrounds. The primary text and semantic accents meet strong contrast levels for normal text; muted text was raised to improve readability in dim environments.
-
-Accessibility should still be tested in VS Code at different brightness levels, displays, zoom settings, and with user-installed extensions because third-party UI and semantic tokens can affect the final appearance.
+Report an inaccessible or confusing color pairing with the theme edition, foreground/background role, and a screenshot if possible.
