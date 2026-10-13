@@ -1,0 +1,29 @@
+{
+  "description": "Theme variants, their defining accents, and expected editor backgrounds.",
+  "variants": [
+    {
+      "label": "Ava Night",
+      "path": "themes/ava-night.json",
+      "background": "#131722",
+      "accent": "#61AFEF"
+    },
+    {
+      "label": "Ava Night — Moonlit",
+      "path": "themes/ava-night-moonlit.json",
+      "background": "#14212A",
+      "accent": "#78DCE8"
+    },
+    {
+      "label": "Ava Night — Eclipse",
+      "path": "themes/ava-night-eclipse.json",
+      "background": "#1B1728",
+      "accent": "#B48EFA"
+    },
+    {
+      "label": "Ava Night — Afterglow",
+      "path": "themes/ava-night-afterglow.json",
+      "background": "#151E1A",
+      "accent": "#8BDCC7"
+    }
+  ]
+}
