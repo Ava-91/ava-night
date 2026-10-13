@@ -27,7 +27,9 @@ const install = run(['--no-sandbox','--disable-gpu','--extensions-dir',extension
 if (install.status !== 0) { console.error(install.stderr || install.stdout); process.exit(1); }
 const results = [];
 for (const item of themes) {
-  fs.writeFileSync(path.join(userData,'settings.json'), JSON.stringify({ 'workbench.colorTheme': item.theme }, null, 2));
+  const settingsDir = path.join(userData, 'User');
+  fs.mkdirSync(settingsDir, { recursive: true });
+  fs.writeFileSync(path.join(settingsDir,'settings.json'), JSON.stringify({ 'workbench.colorTheme': item.theme }, null, 2));
   const target = path.join(out, `${item.label}.png`);
   const capture = run(['--no-sandbox','--disable-gpu','--user-data-dir',userData,'--extensions-dir',extensions,'--new-window',fixture,'--screenshot',target]);
   const exists = fs.existsSync(target) && fs.statSync(target).size > 0;
