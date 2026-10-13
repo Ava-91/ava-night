@@ -1,0 +1,116 @@
+{
+  "name": "Ava Night — Eclipse",
+  "include": "./ava-night-base.json",
+  "colors": {
+    "editor.background": "#1B1728",
+    "editor.foreground": "#E6DFF0",
+    "editor.lineHighlightBackground": "#241D33",
+    "editor.gutter.background": "#120F1C",
+    "editorCursor.foreground": "#D6A5FF",
+    "editorLineNumber.activeForeground": "#D6A5FF",
+    "sideBar.background": "#211B30",
+    "panel.background": "#211B30",
+    "terminal.background": "#120F1C",
+    "activityBar.background": "#120F1C",
+    "statusBar.background": "#120F1C",
+    "titleBar.activeBackground": "#120F1C",
+    "tab.activeBackground": "#1B1728",
+    "tab.inactiveBackground": "#120F1C",
+    "editor.selectionBackground": "#392A50",
+    "list.activeSelectionBackground": "#392A50",
+    "list.inactiveSelectionBackground": "#2C223D",
+    "button.background": "#B48EFA",
+    "button.hoverBackground": "#D6A5FF",
+    "focusBorder": "#B48EFA",
+    "editorBracketHighlight.foreground1": "#B48EFA",
+    "editorBracketHighlight.foreground2": "#A8E6CF",
+    "editorBracketHighlight.foreground3": "#F2C879",
+    "editorBracketHighlight.foreground4": "#D6A5FF",
+    "editorError.foreground": "#FF9EAD",
+    "editorWarning.foreground": "#F2C879",
+    "editorInfo.foreground": "#B48EFA",
+    "gitDecoration.addedResourceForeground": "#A8E6CF",
+    "gitDecoration.modifiedResourceForeground": "#F2C879",
+    "gitDecoration.deletedResourceForeground": "#FF9EAD",
+    "terminal.ansiBlue": "#B48EFA",
+    "terminal.ansiCyan": "#D6A5FF",
+    "terminal.ansiMagenta": "#D6A5FF",
+    "terminal.ansiGreen": "#A8E6CF",
+    "terminal.ansiYellow": "#F2C879",
+    "terminal.ansiRed": "#FF9EAD"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "variable.function"
+      ],
+      "settings": {
+        "foreground": "#B48EFA"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage.type",
+        "storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#D6A5FF"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type",
+        "entity.name.class",
+        "support.type"
+      ],
+      "settings": {
+        "foreground": "#F2C879"
+      }
+    },
+    {
+      "scope": [
+        "string",
+        "string.quoted",
+        "constant.other.symbol"
+      ],
+      "settings": {
+        "foreground": "#A8E6CF"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric",
+        "constant.language"
+      ],
+      "settings": {
+        "foreground": "#F2C879"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.tag",
+        "entity.other.attribute-name"
+      ],
+      "settings": {
+        "foreground": "#D6A5FF"
+      }
+    }
+  ],
+  "semanticTokenColors": {
+    "function": "#B48EFA",
+    "function.declaration": "#B48EFA",
+    "method": "#B48EFA",
+    "keyword": "#D6A5FF",
+    "class": "#F2C879",
+    "type": "#F2C879",
+    "interface": "#F2C879",
+    "string": "#A8E6CF",
+    "number": "#F2C879",
+    "property": "#E6DFF0",
+    "variable": "#E6DFF0",
+    "comment": "#A69AB8"
+  }
+}
