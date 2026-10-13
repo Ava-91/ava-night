@@ -1,91 +1,138 @@
 <div align="center">
 
+<img src=".github/assets/hero.png" alt="Ava Night — a calm midnight coding atmosphere" width="760" />
+
 # 🌙 Ava Night
 
-### Where code meets the quiet of midnight
+### Your code. Your quiet corner of the night.
 
-A calm, midnight Visual Studio Code theme family built around **focus, readable contrast, and meaningful color**.
+A midnight-inspired **Visual Studio Code theme family** designed to make long coding sessions feel focused, expressive, and easy on the eyes.
 
-![Ava Night preview](.github/assets/hero.png)
+**Four atmospheres. One thoughtful color language.**
 
-[![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=flat-square)](https://github.com/Ava-91/ava-night/releases)
-[![License](https://img.shields.io/badge/license-MIT-98C379?style=flat-square)](LICENSE)
-[![VS Code](https://img.shields.io/badge/VS%20Code-theme-7FDBFF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+<p>
+  <a href="#-choose-your-night"><strong>Explore the themes</strong></a> ·
+  <a href="#-get-started"><strong>Install</strong></a> ·
+  <a href="https://github.com/Ava-91/ava-night/issues"><strong>Give feedback</strong></a>
+</p>
+
 [![CI](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml/badge.svg)](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml)
-
-**Calm • Focused • Readable • Midnight**
+[![Version](https://img.shields.io/badge/version-1.3.0-61AFEF?style=for-the-badge)](https://github.com/Ava-91/ava-night/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-98C379?style=for-the-badge)](LICENSE)
+[![VS Code](https://img.shields.io/badge/Visual%20Studio%20Code-1.100%2B-7FDBFF?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
 </div>
 
 ---
 
-## ✨ Pick your atmosphere
+## ✨ Find your atmosphere
 
-| Edition | Character |
-| --- | --- |
-| **Ava Night** | Deep midnight navy, electric blue, icy cyan, lavender, and mint |
-| **Ava Night — Moonlit** | Cooler blue-green surfaces with clear icy highlights |
-| **Ava Night — Eclipse** | Plum-black surfaces with violet and lilac accents |
-| **Ava Night — Afterglow** | Quiet forest surfaces with mint and soft green accents |
+Your editor is where ideas take shape. Pick a palette that fits the mood you want to work in.
 
-All editions are selectable through **Preferences → Color Theme**. The variants are standalone theme files, so their syntax and workbench palettes can be reviewed and tested independently.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/screenshots/ava-night.png"><img src="docs/screenshots/ava-night.png" alt="Ava Night — original midnight navy theme in Visual Studio Code" width="100%" /></a>
+      <h3>🌌 Ava Night</h3>
+      The signature midnight palette: deep navy, electric blue, icy cyan, lavender, and mint.
+      <br /><sub><a href="docs/screenshots/ava-night.png">View full screenshot ↗</a></sub>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/screenshots/moonlit.png"><img src="docs/screenshots/moonlit.png" alt="Ava Night Moonlit — cool blue-green theme in Visual Studio Code" width="100%" /></a>
+      <h3>🌙 Ava Night — Moonlit</h3>
+      Cooler blue-green surfaces and crisp, icy highlights for a clean, luminous feel.
+      <br /><sub><a href="docs/screenshots/moonlit.png">View full screenshot ↗</a></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/screenshots/eclipse.png"><img src="docs/screenshots/eclipse.png" alt="Ava Night Eclipse — plum-black and violet theme in Visual Studio Code" width="100%" /></a>
+      <h3>🪻 Ava Night — Eclipse</h3>
+      Plum-black depth with violet and lilac accents: atmospheric, rich, and understated.
+      <br /><sub><a href="docs/screenshots/eclipse.png">View full screenshot ↗</a></sub>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/screenshots/afterglow.png"><img src="docs/screenshots/afterglow.png" alt="Ava Night Afterglow — forest-dark and mint theme in Visual Studio Code" width="100%" /></a>
+      <h3>🌿 Ava Night — Afterglow</h3>
+      Forest-dark surfaces balanced with mint and soft green for a grounded, natural mood.
+      <br /><sub><a href="docs/screenshots/afterglow.png">View full screenshot ↗</a></sub>
+    </td>
+  </tr>
+</table>
 
-## 🌌 Why Ava Night?
+<sub>These are captured VS Code screenshots from the repository's reproducible capture workflow—not concept mockups. See the <a href="docs/SCREENSHOTS.md">screenshot guide</a> and <a href="docs/screenshots/manifest.json">capture manifest</a>.</sub>
 
-- Layered midnight surfaces rather than pure-black backgrounds
-- Consistent color roles for functions, keywords, types, strings, numbers, and errors
-- Coordinated workbench, terminal, Git, diff, selection, and focus colors
-- Semantic-token colors alongside TextMate syntax scopes
-- Local, dependency-light extension with automated validation
+## 🎨 Made for the flow state
 
-### Signature color philosophy
+- **A palette with purpose.** Keywords, functions, types, strings, numbers, and diagnostics each have a recognizable role.
+- **More than syntax.** Editor chrome, terminal, Git decorations, diffs, selections, and focus states share a coordinated visual language.
+- **Semantic-aware color.** Semantic-token colors complement TextMate grammar scopes where the language server provides them.
+- **Deep without disappearing.** Layered midnight surfaces create depth without relying on a featureless pure-black canvas.
+- **Small and self-contained.** A local VS Code theme extension with no runtime service dependency.
+- **Checked, not just curated.** Automated checks cover theme metadata, palettes, contrast pairs, fixtures, and packaging.
 
 > Every color should communicate meaning—not compete for attention.
 
-| Role | Ava Night palette |
-| --- | --- |
-| Deep background | `#0F1117` |
-| Editor background | `#131722` |
-| Primary text | `#D8DEE9` |
-| Focus / interaction | `#61AFEF` |
-| High-attention accent | `#7FDBFF` |
-| Structural syntax | `#B48EFA` |
-| Strings / success | `#98C379` |
-| Warnings / modified | `#FFD166` |
-| Errors / destructive states | `#F07178` |
-| Numeric constants | `#E5C07B` |
+## 🧭 A closer look at the palette
 
-## 📸 Screenshots
+| Purpose | Color | Hex |
+| --- | --- | --- |
+| Deep background | <span style="color:#0F1117">■</span> | `#0F1117` |
+| Editor background | <span style="color:#131722">■</span> | `#131722` |
+| Primary text | <span style="color:#D8DEE9">■</span> | `#D8DEE9` |
+| Focus and interaction | <span style="color:#61AFEF">■</span> | `#61AFEF` |
+| Bright accent | <span style="color:#7FDBFF">■</span> | `#7FDBFF` |
+| Structural syntax | <span style="color:#B48EFA">■</span> | `#B48EFA` |
+| Strings and success | <span style="color:#98C379">■</span> | `#98C379` |
+| Warnings and modified states | <span style="color:#FFD166">■</span> | `#FFD166` |
+| Errors and destructive states | <span style="color:#F07178">■</span> | `#F07178` |
+| Numeric constants | <span style="color:#E5C07B">■</span> | `#E5C07B` |
 
-The checked-in language screenshots below show representative code examples. For current screenshots of all four editions from your installed VS Code runtime, follow [the reproducible screenshot workflow](docs/SCREENSHOTS.md).
+The original edition's palette is shown above; Moonlit, Eclipse, and Afterglow adapt the same intentional color roles to their own atmospheres.
 
-### React + TypeScript
+## 🚀 Get started
 
-![React + TypeScript syntax highlighting](.github/assets/react.png)
+### Install in VS Code
 
-### CSS
+1. Open **Extensions** with `Ctrl + Shift + X` (Windows/Linux) or `Cmd + Shift + X` (macOS).
+2. Search for **Ava Night**.
+3. Install the extension.
+4. Open **Preferences → Color Theme**.
+5. Choose **Ava Night**, **Ava Night — Moonlit**, **Ava Night — Eclipse**, or **Ava Night — Afterglow**.
 
-![CSS syntax highlighting](.github/assets/css.png)
+Already have a `.vsix` package? Open Extensions, select the **⋯** menu, and choose **Install from VSIX…**.
 
-### JSON
+### Choose a theme
 
-![JSON syntax highlighting](.github/assets/json.png)
+You can switch editions at any time through **Preferences → Color Theme**. Each edition is a separately defined theme, so its workbench and syntax palettes can be validated independently.
 
-### Constellation brand mark
+## 🧩 Language coverage
 
-The editable constellation artwork is maintained as a vector source at `assets/ava-night-constellation.svg`.
+The repository includes representative fixtures for:
 
-## ♿ Accessibility and quality
+**TypeScript · TSX · JavaScript · Python · Rust · Go · C++ · CSS · HTML · JSON · JSONC · Markdown · Shell · SQL · YAML**
 
-Ava Night checks color definitions, key contrast pairs, theme metadata, semantic token roles, language fixtures, and VSIX packaging in automated tests. The core editor, sidebar, and terminal text pairs are checked against a **4.5:1 contrast target**.
+Syntax colors depend on each language's grammar. Semantic highlighting also depends on the language server, its settings, and the tokens it supplies.
 
-No color theme can guarantee comfort for every person, display, language server, or extension. Please report a hard-to-read state with the edition name and a screenshot. See [Accessibility & visual quality](docs/accessibility.md) for the manual review checklist and limitations.
+See [Language support](docs/LANGUAGE-SUPPORT.md) for coverage details and inspection guidance.
 
-## 🧪 Run the quality gates
+## ♿ Accessibility, contrast & quality
 
-Requires Node.js 22. VS Code and the VSCE packaging tool are required for package/install smoke checks and screenshot capture.
+Readability matters as much as atmosphere. Ava Night's automated checks validate theme metadata, key palette relationships, semantic-token roles, language fixtures, and VSIX packaging. Core editor, sidebar, and terminal text pairs are checked against a **4.5:1 contrast target**.
+
+That target is a useful check, not a promise that every UI element or every person's display will look perfect. If something is difficult to read, please report the **theme edition**, the **UI or syntax element**, and a screenshot.
+
+- [Accessibility and visual-quality notes](docs/accessibility.md)
+- [Screenshot capture and review guide](docs/SCREENSHOTS.md)
+- [Open a bug report or suggestion](https://github.com/Ava-91/ava-night/issues)
+
+## 🧪 Run the checks locally
+
+**Requirements:** Node.js 22. VS Code and the VSCE packaging tool are needed for the editor/install smoke checks and screenshot capture.
 
 ```bash
+git clone https://github.com/Ava-91/ava-night.git
+cd ava-night
 npm ci
 npm test
 npm run diagnostics
@@ -99,34 +146,23 @@ npm run screenshots
 npm run release:check
 ```
 
-- `npm test`: unit/regression tests for theme metadata, syntax assets, and contrast.
-- `npm run diagnostics`: emits color, contrast, and fixture reports under `tests/results/`.
-- `npm run quality`: checks required UI colors, semantic roles, palette integrity, and fixtures.
-- `npm run qa`: runs the diagnostics suite and theme-family checks.
-- `npm run variants:check`: validates each selectable edition and key text contrast.
-- `npm run vsix:smoke`: checks required files and metadata inside the packaged extension.
-- `npm run vscode:smoke`: installs the VSIX into an isolated profile and launches VS Code with a fixture.
-- `npm run screenshots`: attempts reproducible real-editor screenshots for all editions; set `CODE_BIN` or `VSIX_PATH` if needed.
-- `npm run release:check`: confirms the release tag matches the package version.
+| Command | What it checks |
+| --- | --- |
+| `npm test` | Unit and regression tests for theme metadata, syntax assets, and contrast |
+| `npm run diagnostics` | Writes color, contrast, and fixture reports to `tests/results/` |
+| `npm run quality` | Required UI colors, semantic roles, palette integrity, and fixtures |
+| `npm run qa` | Diagnostics and theme-family checks |
+| `npm run variants:check` | Every selectable edition and key text-contrast checks |
+| `npm run vsix:smoke` | Required files and metadata inside the extension package |
+| `npm run vscode:smoke` | Installs the VSIX into an isolated profile and launches VS Code with a fixture |
+| `npm run screenshots` | Attempts to capture all editions in a real editor; set `CODE_BIN` or `VSIX_PATH` if needed |
+| `npm run release:check` | Confirms the release tag matches the package version |
 
-The generated reports are build artifacts; they are not committed automatically. Pixel-perfect screenshot regression is not claimed because OS fonts, GPU rendering, and VS Code versions can vary. See [the screenshot workflow](docs/SCREENSHOTS.md).
+Generated reports are build artifacts and are not committed automatically. Screenshot capture is reproducible, but pixel-identical output is not guaranteed across operating systems, fonts, GPUs, and VS Code versions. See the [screenshot guide](docs/SCREENSHOTS.md) for details.
 
-## 🧑‍💻 Language coverage
+## 🛠️ Build and contribute
 
-Repository fixtures include TypeScript/TSX, JavaScript, Python, Rust, Go, C++, CSS, HTML, JSON/JSONC, Markdown, Shell, SQL, and YAML. Syntax grammar coverage is distinct from semantic highlighting: semantic-token availability depends on the language server and its configuration.
-
-See [Language support](docs/LANGUAGE-SUPPORT.md) for the scope and inspection instructions.
-
-## 🚀 Install
-
-1. Open Extensions in VS Code (`Ctrl + Shift + X`).
-2. Search for **Ava Night**.
-3. Install the extension.
-4. Open **Preferences → Color Theme** and choose the edition you prefer.
-
-You can also install a packaged `.vsix` using **Extensions → ⋯ → Install from VSIX...**.
-
-## 🛠 Development
+Want to help improve the night?
 
 ```bash
 git clone https://github.com/Ava-91/ava-night.git
@@ -134,12 +170,22 @@ cd ava-night
 npm ci
 ```
 
-Press **F5** to launch an Extension Development Host. The local semantic-token inspector is documented in `tools/theme-inspector/README.md`.
+Press **F5** in VS Code to launch an Extension Development Host. The local semantic-token inspector is documented in `tools/theme-inspector/README.md`.
 
-## 🤝 Feedback
+Ideas, bug reports, and contributions are welcome. Before reporting a visual issue, mention the edition and include a screenshot when possible.
 
-Found an issue or have an idea? [Open an issue](https://github.com/Ava-91/ava-night/issues).
+**[Browse open issues](https://github.com/Ava-91/ava-night/issues) · [Explore the source](https://github.com/Ava-91/ava-night) · [Read the screenshot guide](docs/SCREENSHOTS.md)**
 
 ## 📄 License
 
-Released under the [MIT License](LICENSE).
+Ava Night is released under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+**Take a breath. Find your focus. Keep building.** 🌙
+
+<sub>Made for the hours when the world gets quiet and the ideas get loud.</sub>
+
+</div>
