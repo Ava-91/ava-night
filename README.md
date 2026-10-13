@@ -79,7 +79,7 @@ The editable constellation artwork is maintained as a vector source at `assets/a
 
 Ava Night checks color definitions, key contrast pairs, theme metadata, semantic token roles, language fixtures, and VSIX packaging in automated tests. The core editor, sidebar, and terminal text pairs are checked against a **4.5:1 contrast target**.
 
-No color theme can guarantee comfort for every person, display, language server, or extension. Please report a hard-to-read state with the edition name and a screenshot. See [Accessibility & visual quality](docs/ACCESSIBILITY.md) for the manual review checklist and limitations.
+No color theme can guarantee comfort for every person, display, language server, or extension. Please report a hard-to-read state with the edition name and a screenshot. See [Accessibility & visual quality](docs/accessibility.md) for the manual review checklist and limitations.
 
 ## 🧪 Run the quality gates
 
