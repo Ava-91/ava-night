@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/constellation.svg" alt="Ava Night constellation mark" width="112" />
+<div align="center" aria-label="Ava Night constellation mark">🌙 ✦ · ✧</div>
 
 # Ava Night
 
