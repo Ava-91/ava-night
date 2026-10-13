@@ -16,12 +16,20 @@ for (const entry of pkg.contributes?.themes ?? []) {
   let theme;
   try { theme = JSON.parse(fs.readFileSync(file, 'utf8')); } catch { fail(`invalid JSON theme: ${entry.path}`); continue; }
   if (theme.name !== entry.label) fail(`theme name mismatch: ${entry.path} says ${theme.name}, package says ${entry.label}`);
+  if (theme.include) {
+    const included = path.resolve(path.dirname(file), theme.include);
+    if (!fs.existsSync(included)) { fail(`${entry.label}: included theme missing: ${theme.include}`); continue; }
+    try {
+      const base = JSON.parse(fs.readFileSync(included, 'utf8'));
+      theme = { ...base, ...theme, colors: { ...(base.colors ?? {}), ...(theme.colors ?? {}) }, semanticTokenColors: { ...(base.semanticTokenColors ?? {}), ...(theme.semanticTokenColors ?? {}) }, tokenColors: theme.tokenColors ?? base.tokenColors };
+    } catch { fail(`${entry.label}: invalid included theme JSON`); continue; }
+  }
   const colors = theme.colors ?? {};
   for (const key of ['editor.background','editor.foreground','sideBar.background','sideBar.foreground','terminal.background','terminal.foreground','focusBorder']) {
     if (!/^#[0-9a-f]{6}$/i.test(colors[key] ?? '')) fail(`${entry.label}: missing/invalid ${key}`);
   }
   for (const [fg,bg] of [['editor.foreground','editor.background'],['sideBar.foreground','sideBar.background'],['terminal.foreground','terminal.background']]) {
-    if (colors[fg] && colors[bg] && ratio(colors[fg],colors[bg]) < 4.5) fail(`${entry.label}: ${fg} on ${bg} fails 4.5:1 contrast`);
+    if (colors[fg] && colors[bg] && ratio(colors[fg],colors[bg]) < 4.5) fail(`${entry.label}: ${fg} on ${bg} fails 4.5:1 contrast (${ratio(colors[fg],colors[bg]).toFixed(2)}:1)`);
   }
   if (!Array.isArray(theme.tokenColors) || !theme.tokenColors.length) fail(`${entry.label}: syntax token colors are missing`);
   if (!theme.semanticTokenColors || !Object.keys(theme.semanticTokenColors).length) fail(`${entry.label}: semantic token colors are missing`);
