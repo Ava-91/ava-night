@@ -6,6 +6,10 @@ This project follows the spirit of [Keep a Changelog](https://keepachangelog.com
 
 ## [Unreleased]
 
+No unreleased changes yet.
+
+## [1.4.0] - 2026-10-13
+
 ### Added
 
 - Moonlit, Eclipse, and Afterglow theme editions alongside the original Ava Night palette.
@@ -20,10 +24,12 @@ This project follows the spirit of [Keep a Changelog](https://keepachangelog.com
 - Cleaned up duplicate packaging and VS Code installation steps in CI.
 - Aligned npm lockfile metadata with the extension package version.
 - Clarified the limits of semantic highlighting and screenshot comparisons.
+- Redesigned the README around the four real, reproducibly captured VS Code theme screenshots.
 
 ## [1.1.0]
 
 - Initial published Ava Night release.
 
-[Unreleased]: https://github.com/Ava-91/ava-night/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/Ava-91/ava-night/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/Ava-91/ava-night/compare/v1.3.0...v1.4.0
 [1.1.0]: https://github.com/Ava-91/ava-night/releases/tag/v1.1.0
