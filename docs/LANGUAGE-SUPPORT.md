@@ -25,6 +25,12 @@ The fixture directory is a review suite, not a list of languages that VS Code of
 - **Semantic tokens** cover common language-server roles such as functions, methods, classes, interfaces, types, enums, properties, parameters, variables, namespaces, decorators, macros, and comments.
 - **Workbench colors** are language-independent, so editor surfaces, selections, diagnostics, terminal colors, diffs, and focus states remain themed regardless of file type.
 
+## Variable-color policy
+
+Variables, parameters, object properties, CSS custom properties, and variable-like identifiers use each edition's accent colors rather than the editor's neutral foreground. Constants remain a separate gold/amber role, while properties and parameters use a secondary blue, cyan, lavender, or green accent according to the selected edition. The automated variable-color test checks these mappings for all four editions and exercises dedicated Python, TypeScript/TSX, JSX, JavaScript, CSS, HTML, and PHP fixtures.
+
+The checked-in fixture inventory is tracked in [`tests/language-matrix.json`](../tests/language-matrix.json). CI verifies that every listed fixture exists and that the fixture directory and matrix stay in sync.
+
 ## Reviewing language support
 
 1. Install the VS Code extension that provides syntax grammar or language-server support for the language.
@@ -33,7 +39,7 @@ The fixture directory is a review suite, not a list of languages that VS Code of
 4. Check comments, strings, numeric constants, keywords, types, functions, properties, parameters, decorators, embedded regions, and invalid syntax.
 5. If an extension's grammar uses an unusual scope, report the language, theme edition, extension name, token/scope, and a screenshot if possible.
 
-Run the project checks described in [the development guide](../DEVELOPMENT.md). Automated fixtures confirm that examples are present; they do not prove that every language server emits identical tokens or that every extension's custom grammar has been visually tested.
+Run the project checks described in [the development guide](../DEVELOPMENT.md). Automated checks verify the fixture inventory, theme token rules, and variable-color assignments. They do not prove that every language server emits identical tokens or that every extension's custom grammar has been visually tested; extension-specific grammar rendering still depends on the language extension installed in VS Code.
 
 ## Important limitation
 
