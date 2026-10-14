@@ -43,3 +43,18 @@ test('primary text, sidebar text, and terminal text meet 4.5:1 contrast', () => 
 test('core TypeScript, Python, and Rust fixtures exist', () => {
   for (const name of ['typescript.ts','python.py','rust.rs']) assert.ok(fs.existsSync(path.join(root,'tests','syntax',name)),name);
 });
+
+test('broad language-family syntax fixtures exist for cross-language review', () => {
+  const fixtures = [
+    'java.java', 'csharp.cs', 'kotlin.kt', 'swift.swift', 'dart.dart',
+    'ruby.rb', 'php.php', 'lua.lua', 'r.r', 'julia.jl', 'scala.scala',
+    'haskell.hs', 'elixir.ex', 'clojure.clj', 'perl.pl', 'powershell.ps1',
+    'Dockerfile', 'terraform.tf', 'graphql.graphql', 'vue.vue', 'svelte.svelte',
+    'astro.astro', 'solidity.sol', 'zig.zig', 'ocaml.ml', 'groovy.groovy',
+    'protobuf.proto', 'sample.tex', 'sample.toml', 'sample.ini', 'sample.diff',
+    'Makefile'
+  ];
+  for (const name of fixtures) {
+    assert.ok(fs.existsSync(path.join(root, 'tests', 'syntax', name)), name);
+  }
+});
