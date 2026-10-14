@@ -1,0 +1,6 @@
+[project]
+name = "ava-night"
+version = "1.0.0"
+active = true
+[tool.example]
+colors = ["blue", "cyan", "lavender"]

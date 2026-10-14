@@ -13,11 +13,8 @@ const qaScript = path.join(root, 'tools', 'theme-qa.js');
 const baseTheme = path.join(root, 'themes', 'ava-night-base.json');
 const palettePath = path.join(root, 'themes', 'palette.json');
 
-const expectedFixtures = [
-  'cpp.cpp', 'css.css', 'go.go', 'html.html', 'javascript.js', 'json.json',
-  'jsonc.jsonc', 'markdown.md', 'python.py', 'react.tsx', 'rust.rs', 'shell.sh',
-  'sql.sql', 'typescript.ts', 'yaml.yaml',
-];
+const languageMatrix = JSON.parse(fs.readFileSync(path.join(root, 'tests', 'language-matrix.json'), 'utf8'));
+const expectedFixtures = [...languageMatrix.fixtures].sort();
 
 const semanticExpectations = {
   function: 'blue', method: 'blue', macro: 'blue', builtin: 'blue',
@@ -27,9 +24,10 @@ const semanticExpectations = {
   type: 'yellow', typeParameter: 'yellow', number: 'number',
   string: 'green', regexp: 'cyan', decorator: 'cyan', annotation: 'cyan',
   label: 'cyan', event: 'cyan',
-  variable: 'text', 'variable.readonly': 'text', 'variable.defaultLibrary': 'text',
-  'variable.member': 'text', 'variable.mutable': 'text', property: 'text',
-  'property.readonly': 'text', parameter: 'text', operator: 'text', comment: 'mutedText',
+  variable: 'cyan', 'variable.readonly': 'blue', 'variable.defaultLibrary': 'cyan',
+  'variable.member': 'blue', 'variable.mutable': 'cyan', 'variable.constant': 'yellow',
+  property: 'blue', 'property.readonly': 'cyan', 'property.defaultLibrary': 'blue',
+  parameter: 'blue', 'parameter.readonly': 'blue', operator: 'text', comment: 'mutedText',
 };
 
 function run(script) {

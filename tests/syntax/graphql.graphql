@@ -1,0 +1,13 @@
+query UserProfile($id: ID!) {
+  user(id: $id) {
+    id
+    displayName
+    isActive
+  }
+}
+
+type User {
+  id: ID!
+  displayName: String!
+  isActive: Boolean!
+}

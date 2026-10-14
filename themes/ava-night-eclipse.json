@@ -291,11 +291,17 @@
     {
       "scope": [
         "variable",
+        "variable.other",
         "variable.other.readwrite",
+        "variable.other.member",
+        "variable.other.object",
+        "variable.other.assignment",
+        "variable.language",
+        "entity.name.variable",
         "meta.definition.variable"
       ],
       "settings": {
-        "foreground": "#E7DDED"
+        "foreground": "#B99AFF"
       }
     },
     {
@@ -388,6 +394,148 @@
       "settings": {
         "foreground": "#FF9DB7"
       }
+    },
+    {
+      "scope": [
+        "entity.name.namespace",
+        "entity.name.module",
+        "entity.name.package",
+        "entity.name.struct",
+        "entity.name.interface",
+        "entity.name.trait",
+        "entity.name.enum",
+        "entity.name.type.alias",
+        "support.type.primitive"
+      ],
+      "settings": {
+        "foreground": "#F0C987"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function.constructor",
+        "entity.name.function.member",
+        "support.function.builtin",
+        "meta.function-call.generic"
+      ],
+      "settings": {
+        "foreground": "#B99AFF"
+      }
+    },
+    {
+      "scope": [
+        "keyword.control.conditional",
+        "keyword.control.loop",
+        "keyword.control.exception",
+        "keyword.operator",
+        "storage.type.function",
+        "storage.type.class"
+      ],
+      "settings": {
+        "foreground": "#D6A5FF"
+      }
+    },
+    {
+      "scope": [
+        "variable.parameter",
+        "variable.parameter.function",
+        "variable.other.property",
+        "variable.other.custom-property",
+        "meta.object-literal.key",
+        "support.variable",
+        "meta.function.parameters",
+        "support.type.property-name"
+      ],
+      "settings": {
+        "foreground": "#D6A5FF"
+      }
+    },
+    {
+      "scope": [
+        "constant.language.boolean",
+        "constant.language.null",
+        "constant.language.undefined",
+        "support.constant",
+        "constant.character.escape",
+        "constant.other.color"
+      ],
+      "settings": {
+        "foreground": "#EACB8A"
+      }
+    },
+    {
+      "scope": [
+        "string.template",
+        "string.regexp",
+        "string.quoted.docstring",
+        "punctuation.definition.template-expression",
+        "constant.other.key"
+      ],
+      "settings": {
+        "foreground": "#A8E6CF"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.tag.yaml",
+        "entity.name.tag.xml",
+        "entity.other.attribute-name.id",
+        "entity.other.attribute-name.class",
+        "entity.name.label"
+      ],
+      "settings": {
+        "foreground": "#D6A5FF"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function.decorator",
+        "meta.annotation",
+        "storage.type.annotation",
+        "entity.name.decorator"
+      ],
+      "settings": {
+        "foreground": "#B99AFF"
+      }
+    },
+    {
+      "scope": [
+        "punctuation.accessor",
+        "punctuation.separator.key-value",
+        "punctuation.separator.dictionary",
+        "punctuation.section.embedded"
+      ],
+      "settings": {
+        "foreground": "#B2A0C1"
+      }
+    },
+    {
+      "scope": [
+        "comment.documentation",
+        "comment.block.documentation",
+        "string.quoted.docstring.multi"
+      ],
+      "settings": {
+        "foreground": "#B2A0C1"
+      }
+    },
+    {
+      "scope": [
+        "invalid.deprecated",
+        "invalid.unimplemented"
+      ],
+      "settings": {
+        "foreground": "#FF9DB7"
+      }
+    },
+    {
+      "scope": [
+        "variable.other.constant",
+        "variable.other.enummember"
+      ],
+      "settings": {
+        "foreground": "#F0C987"
+      }
     }
   ],
   "semanticTokenColors": {
@@ -421,17 +569,17 @@
     "label": "#D6A5FF",
     "event": "#D6A5FF",
     "number": "#EACB8A",
-    "variable": "#E7DDED",
-    "variable.readonly": "#E7DDED",
-    "variable.defaultLibrary": "#E7DDED",
-    "variable.member": "#E7DDED",
-    "variable.mutable": "#E7DDED",
-    "variable.constant": "#E7DDED",
-    "property": "#E7DDED",
-    "property.readonly": "#E7DDED",
-    "property.defaultLibrary": "#E7DDED",
-    "parameter": "#E7DDED",
-    "parameter.readonly": "#E7DDED",
+    "variable": "#B99AFF",
+    "variable.readonly": "#D6A5FF",
+    "variable.defaultLibrary": "#B99AFF",
+    "variable.member": "#D6A5FF",
+    "variable.mutable": "#B99AFF",
+    "variable.constant": "#F0C987",
+    "property": "#D6A5FF",
+    "property.readonly": "#B99AFF",
+    "property.defaultLibrary": "#D6A5FF",
+    "parameter": "#D6A5FF",
+    "parameter.readonly": "#D6A5FF",
     "operator": "#E7DDED",
     "modifier": "#D6A5FF",
     "comment": "#B2A0C1"

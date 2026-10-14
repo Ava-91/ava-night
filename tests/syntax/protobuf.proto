@@ -1,0 +1,9 @@
+syntax = "proto3";
+package avanight;
+message User {
+  string name = 1;
+  bool active = 2;
+}
+service UserService {
+  rpc GetUser (User) returns (User);
+}

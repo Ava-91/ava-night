@@ -5,7 +5,8 @@ const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const resultsDir = path.join(root, 'tests', 'results');
-const fixture = path.join(root, 'tests', 'syntax', 'javascript.js');
+const languageMatrix = JSON.parse(fs.readFileSync(path.join(root, 'tests', 'language-matrix.json'), 'utf8'));
+const fixtures = languageMatrix.fixtures.map(name => path.join(root, 'tests', 'syntax', name));
 const extensionId = 'ava-91.ava-night';
 const code = process.env.CODE_BIN || 'code';
 const vsix = process.env.VSIX_PATH || path.join(root, 'ava-night.vsix');
@@ -25,7 +26,8 @@ function fail(message) {
 }
 
 if (!fs.existsSync(vsix)) fail(`VSIX not found: ${vsix}`);
-if (!fs.existsSync(fixture)) fail(`Fixture not found: ${fixture}`);
+const missingFixtures = fixtures.filter(file => !fs.existsSync(file));
+if (missingFixtures.length) fail(`Fixtures not found: ${missingFixtures.map(file => path.relative(root, file)).join(', ')}`);
 if (process.exitCode) process.exit();
 
 const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'ava-night-vscode-'));
@@ -57,7 +59,7 @@ const launch = spawnSync('xvfb-run', [
   '--user-data-dir', userDataDir,
   '--extensions-dir', extensionsDir,
   '--new-window',
-  fixture,
+  ...fixtures,
 ], {
   cwd: root,
   encoding: 'utf8',
@@ -74,7 +76,8 @@ const report = {
   status: process.exitCode ? 'fail' : 'pass',
   code,
   extension: extensionId,
-  fixture: path.relative(root, fixture),
+  fixtureCount: fixtures.length,
+  fixtures: fixtures.map(file => path.relative(root, file)),
   requestedTheme: 'Ava Night',
   launch: {
     timeoutExpected: true,
@@ -84,4 +87,4 @@ const report = {
 fs.mkdirSync(resultsDir, { recursive: true });
 fs.writeFileSync(path.join(resultsDir, 'vscode-smoke-report.json'), `${JSON.stringify(report, null, 2)}\n`);
 
-if (!process.exitCode) console.log('VS Code smoke test passed: Ava Night installed, selected, and launched with a representative fixture.');
+if (!process.exitCode) console.log(`VS Code smoke test passed: Ava Night installed, selected, and launched with all ${fixtures.length} representative syntax fixtures.`);

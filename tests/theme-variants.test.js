@@ -43,3 +43,10 @@ test('primary text, sidebar text, and terminal text meet 4.5:1 contrast', () => 
 test('core TypeScript, Python, and Rust fixtures exist', () => {
   for (const name of ['typescript.ts','python.py','rust.rs']) assert.ok(fs.existsSync(path.join(root,'tests','syntax',name)),name);
 });
+
+test('broad language-family syntax fixtures exist for cross-language review', () => {
+  const matrix = JSON.parse(fs.readFileSync(path.join(root, 'tests', 'language-matrix.json'), 'utf8'));
+  for (const name of matrix.fixtures) {
+    assert.ok(fs.existsSync(path.join(root, 'tests', 'syntax', name)), name);
+  }
+});

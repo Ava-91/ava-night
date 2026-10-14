@@ -11,11 +11,8 @@ const inventoryPath = path.join(resultsDir, 'fixture-inventory.json');
 const qaJsonPath = path.join(resultsDir, 'qa-report.json');
 const qaMarkdownPath = path.join(resultsDir, 'qa-report.md');
 
-const expectedFixtures = new Set([
-  'cpp.cpp', 'css.css', 'go.go', 'html.html', 'javascript.js', 'json.json',
-  'jsonc.jsonc', 'markdown.md', 'python.py', 'react.tsx', 'rust.rs', 'shell.sh',
-  'sql.sql', 'typescript.ts', 'yaml.yaml',
-]);
+const languageMatrix = JSON.parse(fs.readFileSync(path.join(root, 'tests', 'language-matrix.json'), 'utf8'));
+const expectedFixtures = new Set(languageMatrix.fixtures);
 
 const requiredPairs = [
   ['editor.foreground', 'editor.background'],
