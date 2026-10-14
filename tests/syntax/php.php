@@ -9,5 +9,6 @@ final class User {
 }
 
 function greet(User $user): string {
-    return $user->active ? "Hello, {$user->name}" : 'Inactive';
+    $message = "Hello, {$user->name}";
+    return $user->active ? $message : 'Inactive';
 }
