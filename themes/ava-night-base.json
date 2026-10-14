@@ -291,11 +291,17 @@
     {
       "scope": [
         "variable",
+        "variable.other",
         "variable.other.readwrite",
+        "variable.other.member",
+        "variable.other.object",
+        "variable.other.assignment",
+        "variable.language",
+        "entity.name.variable",
         "meta.definition.variable"
       ],
       "settings": {
-        "foreground": "#D8DEE9"
+        "foreground": "#7FDBFF"
       }
     },
     {
@@ -434,12 +440,14 @@
         "variable.parameter",
         "variable.parameter.function",
         "variable.other.property",
+        "variable.other.custom-property",
         "meta.object-literal.key",
         "support.variable",
-        "variable.other.constant"
+        "meta.function.parameters",
+        "support.type.property-name"
       ],
       "settings": {
-        "foreground": "#D8DEE9"
+        "foreground": "#61AFEF"
       }
     },
     {
@@ -519,6 +527,15 @@
       "settings": {
         "foreground": "#F07178"
       }
+    },
+    {
+      "scope": [
+        "variable.other.constant",
+        "variable.other.enummember"
+      ],
+      "settings": {
+        "foreground": "#FFD166"
+      }
     }
   ],
   "semanticTokenColors": {
@@ -552,17 +569,17 @@
     "label": "#7FDBFF",
     "event": "#7FDBFF",
     "number": "#E5C07B",
-    "variable": "#D8DEE9",
-    "variable.readonly": "#D8DEE9",
-    "variable.defaultLibrary": "#D8DEE9",
-    "variable.member": "#D8DEE9",
-    "variable.mutable": "#D8DEE9",
-    "variable.constant": "#D8DEE9",
-    "property": "#D8DEE9",
-    "property.readonly": "#D8DEE9",
-    "property.defaultLibrary": "#D8DEE9",
-    "parameter": "#D8DEE9",
-    "parameter.readonly": "#D8DEE9",
+    "variable": "#7FDBFF",
+    "variable.readonly": "#61AFEF",
+    "variable.defaultLibrary": "#7FDBFF",
+    "variable.member": "#61AFEF",
+    "variable.mutable": "#7FDBFF",
+    "variable.constant": "#FFD166",
+    "property": "#61AFEF",
+    "property.readonly": "#7FDBFF",
+    "property.defaultLibrary": "#61AFEF",
+    "parameter": "#61AFEF",
+    "parameter.readonly": "#61AFEF",
     "operator": "#D8DEE9",
     "modifier": "#B48EFA",
     "comment": "#8B95A7"
