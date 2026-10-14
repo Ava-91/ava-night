@@ -12,12 +12,13 @@ A midnight-inspired **Visual Studio Code theme family** designed to make long co
 
 <p>
   <a href="#-find-your-atmosphere"><strong>Explore the themes</strong></a> ·
-  <a href="#-get-started"><strong>Install</strong></a> ·
+  <a href="https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night"><strong>Install from Marketplace</strong></a> ·
+  <a href="#-find-your-atmosphere"><strong>Compare editions</strong></a> ·
   <a href="https://github.com/Ava-91/ava-night/issues"><strong>Give feedback</strong></a>
 </p>
 
 [![CI](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml/badge.svg)](https://github.com/Ava-91/ava-night/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-1.4.0-61AFEF?style=for-the-badge)](https://github.com/Ava-91/ava-night/releases)
+[![Marketplace version](https://img.shields.io/visual-studio-marketplace/v/Ava-91.ava-night?label=Marketplace&logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night)
 [![License: MIT](https://img.shields.io/badge/license-MIT-98C379?style=for-the-badge)](LICENSE)
 [![VS Code](https://img.shields.io/badge/Visual%20Studio%20Code-1.100%2B-7FDBFF?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
@@ -94,11 +95,10 @@ The original edition's palette is shown above; Moonlit, Eclipse, and Afterglow a
 
 ### Install in VS Code
 
-1. Open **Extensions** with `Ctrl + Shift + X` (Windows/Linux) or `Cmd + Shift + X` (macOS).
-2. Search for **Ava Night**.
-3. Install the extension.
-4. Open **Preferences → Color Theme**.
-5. Choose **Ava Night**, **Ava Night — Moonlit**, **Ava Night — Eclipse**, or **Ava Night — Afterglow**.
+1. [Open Ava Night in the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night) or open **Extensions** with `Ctrl + Shift + X` (Windows/Linux) or `Cmd + Shift + X` (macOS).
+2. Install **Ava Night**.
+3. Open **Preferences → Color Theme**.
+4. Choose **Ava Night**, **Ava Night — Moonlit**, **Ava Night — Eclipse**, or **Ava Night — Afterglow**.
 
 Already have a `.vsix` package? Open Extensions, select the **⋯** menu, and choose **Install from VSIX…**.
 
