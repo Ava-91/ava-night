@@ -124,6 +124,7 @@ That target is a useful check, not a promise that every UI element or every pers
 
 - [Accessibility and visual-quality notes](docs/accessibility.md)
 - [Screenshot capture and review guide](docs/SCREENSHOTS.md)
+- [Marketplace and release checklist](docs/MARKETPLACE-CHECKLIST.md)
 - [Open a bug report or suggestion](https://github.com/Ava-91/ava-night/issues)
 
 ## 🧪 Run the checks locally
