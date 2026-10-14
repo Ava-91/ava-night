@@ -45,16 +45,8 @@ test('core TypeScript, Python, and Rust fixtures exist', () => {
 });
 
 test('broad language-family syntax fixtures exist for cross-language review', () => {
-  const fixtures = [
-    'java.java', 'csharp.cs', 'kotlin.kt', 'swift.swift', 'dart.dart',
-    'ruby.rb', 'php.php', 'lua.lua', 'r.r', 'julia.jl', 'scala.scala',
-    'haskell.hs', 'elixir.ex', 'clojure.clj', 'perl.pl', 'powershell.ps1',
-    'Dockerfile', 'terraform.tf', 'graphql.graphql', 'vue.vue', 'svelte.svelte',
-    'astro.astro', 'solidity.sol', 'zig.zig', 'ocaml.ml', 'groovy.groovy',
-    'protobuf.proto', 'sample.tex', 'sample.toml', 'sample.ini', 'sample.diff',
-    'Makefile'
-  ];
-  for (const name of fixtures) {
+  const matrix = JSON.parse(fs.readFileSync(path.join(root, 'tests', 'language-matrix.json'), 'utf8'));
+  for (const name of matrix.fixtures) {
     assert.ok(fs.existsSync(path.join(root, 'tests', 'syntax', name)), name);
   }
 });
