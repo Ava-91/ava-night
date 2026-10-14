@@ -87,4 +87,4 @@ const report = {
 fs.mkdirSync(resultsDir, { recursive: true });
 fs.writeFileSync(path.join(resultsDir, 'vscode-smoke-report.json'), `${JSON.stringify(report, null, 2)}\n`);
 
-if (!process.exitCode) console.log('VS Code smoke test passed: Ava Night installed, selected, and launched with all ${fixtures.length} representative syntax fixtures.');
+if (!process.exitCode) console.log(`VS Code smoke test passed: Ava Night installed, selected, and launched with all ${fixtures.length} representative syntax fixtures.`);
