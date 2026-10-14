@@ -1,0 +1,70 @@
+name: Bug report
+description: Report a readability, syntax-color, UI, or packaging problem in Ava Night.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for helping improve Ava Night. Please check existing issues first and share enough detail to reproduce the problem."
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Theme edition
+      description: Which Ava Night edition are you using?
+      options:
+        - Ava Night
+        - Ava Night — Moonlit
+        - Ava Night — Eclipse
+        - Ava Night — Afterglow
+        - All editions / not sure
+    validations:
+      required: true
+  - type: input
+    id: vscode-version
+    attributes:
+      label: VS Code version
+      placeholder: "e.g. 1.100.0"
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+      placeholder: "e.g. Windows 11, macOS, Ubuntu"
+    validations:
+      required: true
+  - type: input
+    id: surface
+    attributes:
+      label: Language or UI surface
+      description: "e.g. TypeScript parameter, inactive tab, terminal ANSI red, Git diff"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected appearance
+      description: What did you expect to see?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual appearance
+      description: What did you see, and why was it difficult to read or understand?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: "1. Select the theme...\n2. Open the file...\n3. Observe..."
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot or color details
+      description: "Drag in a screenshot if possible. Avoid including secrets or private source code."
+    validations:
+      required: false
