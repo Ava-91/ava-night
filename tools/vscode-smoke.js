@@ -48,6 +48,7 @@ const settingsDir = path.join(userDataDir, 'User');
 fs.mkdirSync(settingsDir, { recursive: true });
 fs.writeFileSync(path.join(settingsDir, 'settings.json'), JSON.stringify({
   'workbench.colorTheme': 'Ava Night',
+  'files.associations': { '*.swift.txt': 'swift' },
 }, null, 2));
 
 const launch = spawnSync('xvfb-run', [
