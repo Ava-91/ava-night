@@ -89,7 +89,7 @@ test('priority language fixtures contain real variable patterns for review', () 
     'jsx.jsx': [/<article/, /\bdisplayName\b/, /\bhandleClick\b/],
     'javascript.js': [/\bconst pattern\b/, /\bconfig\b/, /\bservice\b/],
     'css.css': [/--background/, /--foreground/, /--accent/],
-    'html.html': [/onclick=/, /data-theme=/, /<script>/],
+    'html.html': [/onclick=/, /data-theme=/, /<script>/i],
     'php.php': [/\$user/, /\$message/, /\$name/],
   };
   for (const [name, patterns] of Object.entries(checks)) {
