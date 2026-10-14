@@ -1,118 +1,81 @@
-# Ava Night Development Guide
+# Ava Night development guide
+
+This guide describes the current four-edition theme family and its validation workflow.
 
 ## Requirements
 
-- Node.js
-- npm
-- Visual Studio Code
-- @vscode/vsce
+- Node.js 22 and npm
+- Git
+- Visual Studio Code for Extension Development Host testing
+- The VS Code CLI and VSCE for packaging, installed-extension smoke tests, and screenshot capture
 
----
-
-## Install dependencies
+## Set up the project
 
 ```bash
-npm install
-````
+git clone https://github.com/Ava-91/ava-night.git
+cd ava-night
+npm ci
+```
 
-## Run the Extension Development Host
+Press **F5** in VS Code to open an Extension Development Host with the local extension.
 
-Press **F5**
+## Project layout
 
-or use
+- `package.json` — extension metadata and the four selectable theme contributions.
+- `themes/ava-night.json` — Ava Night's published theme entry point.
+- `themes/ava-night-moonlit.json` — Moonlit edition.
+- `themes/ava-night-eclipse.json` — Eclipse edition.
+- `themes/ava-night-afterglow.json` — Afterglow edition.
+- `themes/ava-night-base.json` and `themes/palette.json` — shared theme foundation and palette.
+- `tests/syntax/` — representative language fixtures.
+- `tools/` — diagnostics, quality checks, variant checks, packaging smoke tests, screenshot capture, and release validation.
+- `docs/` — accessibility, language support, and screenshot review guidance.
 
-Run → Start Debugging
+Theme entry points can include shared files and override selected colors. Validate the resolved theme rather than reviewing an individual JSON file in isolation.
 
----
+## Validate a change
 
-## Package
+Run these checks before opening a pull request:
 
 ```bash
-vsce package
+npm test
+npm run diagnostics
+npm run quality
+npm run variants:check
+npm run qa
 ```
 
-The generated file will look like:
-
-```
-ava-night-x.x.x.vsix
-```
-
----
-
-## Publish
+For packaging and installed-extension checks, use the VS Code CLI and VSCE:
 
 ```bash
-vsce publish
+npx --yes @vscode/vsce package --no-dependencies
+npm run vsix:smoke
+npm run vscode:smoke
 ```
 
-or
+For screenshot capture, follow [the screenshot guide](docs/SCREENSHOTS.md). Depending on your environment, you may need to set `CODE_BIN` or `VSIX_PATH`. Screenshot output can differ across operating systems, fonts, GPUs, and VS Code versions, so use it as visual evidence rather than assuming pixel-identical output.
+
+To run the release-version consistency check, provide the version you intend to validate:
 
 ```bash
-vsce publish patch
+RELEASE_VERSION=1.4.0 npm run release:check
 ```
 
-```bash
-vsce publish minor
-```
+Replace `1.4.0` with the version being checked. This check does not publish the extension.
 
-```bash
-vsce publish major
-```
+## Contribution checklist
 
----
+- [ ] Test the affected edition in a real Extension Development Host.
+- [ ] Run the automated checks relevant to the change.
+- [ ] Review contrast, focus visibility, and syntax distinguishability.
+- [ ] Update documentation or the changelog when user-visible behavior changes.
+- [ ] Confirm the generated screenshots still represent the intended appearance.
+- [ ] Verify the packaged VSIX before preparing a release.
 
-## Project Structure
+Keep changes focused: fix a demonstrated readability or compatibility issue before adding another theme edition.
 
-```
-themes/
-    Ava Night-color-theme.json
-```
+## Useful links
 
----
-
-## Repository
-
-[https://github.com/Ava-91/ava-night](https://github.com/Ava-91/ava-night)
-
----
-
-## Marketplace
-
-[https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night](https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night)
-
-````
-
----
-
-# 📁 .github/PULL_REQUEST_TEMPLATE.md
-
-```md
-## Summary
-
-Describe the changes made.
-
----
-
-## Type of Change
-
-- [ ] Bug fix
-- [ ] New feature
-- [ ] UI improvement
-- [ ] Theme color adjustment
-- [ ] Documentation
-
----
-
-## Checklist
-
-- [ ] Theme builds successfully
-- [ ] JSON is valid
-- [ ] README updated (if needed)
-- [ ] CHANGELOG updated
-- [ ] Screenshots updated (if needed)
-
----
-
-## Additional Notes
-
-Anything reviewers should know?
+- [Install Ava Night from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Ava-91.ava-night)
+- [Report an issue or suggest an improvement](https://github.com/Ava-91/ava-night/issues)
+- [Browse the repository](https://github.com/Ava-91/ava-night)
