@@ -1,0 +1,42 @@
+name: Theme improvement suggestion
+description: Suggest a focused improvement to readability, consistency, or the Marketplace experience.
+title: "[Suggestion]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "The most useful suggestions explain the user problem first, rather than proposing colors without context."
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Theme edition
+      options:
+        - Ava Night
+        - Ava Night — Moonlit
+        - Ava Night — Eclipse
+        - Ava Night — Afterglow
+        - All editions
+        - Marketplace / documentation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should be solved?
+      description: Describe the readability, workflow, or discoverability issue.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested improvement
+      description: What change do you think would help?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and context
+      description: Have you tried another theme, setting, or workaround?
+    validations:
+      required: false
