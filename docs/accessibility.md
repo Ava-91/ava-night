@@ -14,7 +14,7 @@ npm run variants:check
 npm run qa
 ```
 
-The theme-family check requires at least **4.5:1 contrast** for primary editor text, sidebar text, and terminal text in each resolved edition. Other diagnostics inspect additional UI and semantic color pairs.
+The theme-family check requires at least **4.5:1 contrast** for primary editor text, sidebar text, and terminal text in each resolved edition. It also checks line numbers, input text and placeholders, active/inactive tabs, panel titles, diagnostic colors, six terminal ANSI colors, focus borders, and Git added/deleted gutter markers. Text pairs use a 4.5:1 target; focus and non-text state markers use a 3:1 target. Other diagnostics inspect additional UI and semantic color pairs.
 
 Passing selected contrast checks does not establish full WCAG conformance. Focus visibility, non-text UI boundaries, syntax distinguishability, font rendering, transparency, display settings, and extension-specific UI still matter.
 
